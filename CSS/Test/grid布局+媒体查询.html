@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid布局下子元素width动态变化、媒体查询符改变列数</title>
+    <style>
+        #app {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+            width: 100vw;
+            height: 100vh;
+            background-color: pink;
+        }
+
+        .box {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: red;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        @media screen and (min-width: 800px) {
+            #app {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            #app {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+        <div class="box">
+            <img src="../../images/girl.jpg" alt="" width="50">
+            <span>abc</span>
+        </div>
+    </div>
+    <button onclick="getLocal()">getLocal</button>
+    <script>
+        function getLocal() {
+            console.log('可视区宽高：', document.body.offsetWidth, document.body.offsetHeight)
+        }
+    </script>
+</body>
+
+</html>

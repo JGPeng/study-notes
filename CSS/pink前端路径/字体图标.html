@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字体图标</title>
+  <style>
+    @font-face {
+      font-family: 'icomoon';
+      src: url('../../fonts/icomoon.eot?v6ijnu');
+      src: url('../../fonts/icomoon.eot?v6ijnu#iefix') format('embedded-opentype'),
+        url('../../fonts/icomoon.ttf?v6ijnu') format('truetype'),
+        url('../../fonts/icomoon.woff?v6ijnu') format('woff'),
+        url('../../fonts/icomoon.svg?v6ijnu#icomoon') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+
+    span {
+      font-family: 'icomoon';
+    }
+    span:first-child {
+      color: blue;
+    }
+    span:last-child::after {
+      content: "\e903";
+      color: orange;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+  <span></span>
+  <span></span>
+  <span></span>
+</body>
+</html>

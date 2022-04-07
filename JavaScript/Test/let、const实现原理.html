@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>let、const实现原理</title>
+</head>
+
+<body>
+  <div>
+    <p>var和let/const的区别：</p>
+    <ol>
+      <li>var声明的变量会挂到window上，而let和const不会（在ES6中将let、const挂载到Script；而var挂载到Global，在浏览器中Global对象指的就是Window对象）</li>
+      <li>var声明的变量存在变量提升，而let和const不会</li>
+      <li>let和const声明形成块作用域，只能在块作用域里访问，不能跨块访问，也不能跨函数访问</li>
+      <li>同一作用域下let和const不能声明同名变量，而var可以</li>
+      <li>暂时性死区，let和const声明的变量不能在声明前被使用</li>
+    </ol>
+    <p>babel的转化，其实只实现了第2、3、5点</p>
+  </div>
+
+  <script>
+    /**
+     * let实现原理：
+     * babel在let定义的变量前加了道下划线，避免在块作用域外访问到该变量，
+     * 除了对变量名的转换，也可以通过自执行函数来模拟块作用域
+    */
+    for(let i=0;i<10;i++){
+      console.log(i);
+    }
+    //经babel转换
+    for(var _i=0;_i<10;_i++){  //通过改变变量名，此时块作用域外是不存在变量i的
+      console.log(_i);
+    }
+
+    //自执行函数模拟块作用域
+    (function() {  //函数作用域的特征将变量i的作用域范围限制在自执行函数中
+      for(var i=0;i<10;i++){
+        console.log(i);
+      }
+    })();
+
+
+    /**
+     * const实现原理
+    */
+    var __const = function __const(data, value) {
+      window.data = value;
+      Object.defineProperty(window, data, {
+        configurable: false,  //属性的描述符不能被修改：意味着enumerable、writable都为默认值false
+        get: function() {
+          return value;
+        },
+        set: function(data) {
+          throw new TypeError('Assignment to constant variable.');
+        }
+      })
+    }
+    __const('a', 10);
+    console.log(1, a);
+    a = null;
+  </script>
+</body>
+</html>

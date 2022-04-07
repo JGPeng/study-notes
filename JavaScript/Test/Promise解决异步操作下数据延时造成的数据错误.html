@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Promise解决异步操作下数据延时造成的数据错误</title>
+</head>
+
+<body>
+  <div>
+    <button onclick="fn()">点击</button>
+  </div>
+
+  <script>
+    let a = 10;
+
+    function getData() {
+      let data = new Promise((resolve, reject) => {
+        setTimeout(function() {
+          resolve({
+            name: 'Gerald',
+            age: 22
+          })
+        }, 1500);
+      })
+      return data;
+    }
+
+    function getData2(dd) {
+      let data = new Promise((resolve, reject) => {
+        if(dd === 'data') {
+          setTimeout(function() {
+            resolve({
+              name: 'PJG',
+              age: 18
+            })
+          }, 1500);
+        } else {
+          reject('error');
+        }
+      })
+      return data;
+    }
+
+    function handle() {
+      getData().then(res => {
+        a = res.name;
+        console.log(a);
+        return getData2('data');
+      }).then(res => {
+        a = res.name;
+        console.log(a);
+        return getData2('data2');
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+
+    function fn() {
+      handle();
+    }
+  </script>
+</body>
+</html>

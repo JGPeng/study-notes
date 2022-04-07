@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas 默认是行内元素 -->
+    <canvas width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+    <script>
+        /**
+         * 画一条直线的步骤
+         *   1. 获取画布
+         *   2. 获取画布的上下文
+         *   3. 开始一条路径
+         *   4. 确定起始点和结束点
+         *   5. 着色
+         *   6. 结束路径
+         */
+        // 1. 获取画布
+        const canvas = document.querySelector('canvas')
+
+        // 2. 获取画布的上下文
+        const ctx = canvas.getContext('2d')
+
+        // 3. 开始一条路径
+        ctx.beginPath()
+
+        // 4. 确定起始点和结束点
+        ctx.moveTo(100, 100)
+        ctx.lineTo(400, 400)
+
+        // 设置颜色和线宽
+        ctx.strokeStyle = 'red'
+        ctx.lineWidth = 5
+
+        // 5. 着色
+        ctx.stroke()
+
+        // 6. 结束路径
+        ctx.closePath()
+    </script>
+</body>
+</html>

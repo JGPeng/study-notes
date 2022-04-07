@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport标记，用于指定用户是否可以缩放Web页面，并对相关的选项进行设定。 -->
+  <!-- initial-scale用于设置Web页面的初始缩放比例。默认的初始缩放比例值因智能
+    手机浏览器的不同而有所差异，通常情况下，设备会在浏览器中呈现出整个Web页面。
+    设为1.0则显示未经缩放的Web页面。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>预编译</title>
+</head>
+
+<body>
+  <div id="app">
+  </div>
+
+  <script>
+    // 预编译：
+    // 作用域的创建阶段 预编译的阶段
+    // 预编译的时候做了哪些事情：
+    // js的变量对象 AO对象 供JS引擎自己去访问的
+    // 1 创建了AO对象
+    // 2 找形参和变量的声明 作为AO对象的属性名 其值为undefined
+    // 3 实参和形参相统一
+    // 4 找函数声明 会覆盖变量的声明
+    // 5 代码顺序执行
+
+    // AO: {
+    //   a: undefined 1 function a() {}
+    //   c: undefined 2 function c() {}
+    //   d: undefined
+    //   b: undefined
+    // }
+
+    function fn(a, c) {
+      console.log(a);  // function a() {}
+      var a = 123;
+      console.log(a);  // 123
+      console.log(c);  // function c() {}
+      function a() {};
+      if(false) {
+        var d = 678;
+      };
+      console.log(d);  // undefined
+      console.log(b);  // undefined
+      var b = function() {};
+      console.log(b);  // function() {}
+      function c() {};
+      console.log(c);  // function c() {}
+    }
+    fn(1, 2);
+  </script>
+</body>
+</html>

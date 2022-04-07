@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>过渡动画-动画列表</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .v-enter{
+        opacity: 0;
+      }
+      .v-enter-active{
+        transition: all 2s;
+      }
+      .v-enter-to{
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <form>
+        <input v-model="name" />
+        <input type="button" value="添加" @click.prevent="handleAdd" />
+      </form>
+      <!-- 由于 transition-group 在进行渲染时会默认生成span标签，
+        但有时候使用span标签不合适，因此需要使用tag属性进行修改 -->
+      <transition-group appear tag="ul">
+        <li v-for="(item, index) of list" :key="item.id" @click="handleDel(index)">
+          <input type="checkbox" />
+          <span>{{index}}---{{item.name}}</spam>
+        </li>
+      </transition-group>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          name: '',
+          id: 4,
+          list: [
+            {name: 'zs', id: 1},
+            {name: 'ls', id: 2},
+            {name: 'ww', id: 3},
+            {name: 'zl', id: 4}
+          ]
+        },
+        methods: {
+          handleAdd() {
+            this.list.unshift({name: this.name, id: ++this.id})
+          },
+          handleDel(index) {
+            this.list.splice(index, 1)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

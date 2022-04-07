@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>CSS居中</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .content{
+      margin: 20px;
+      width: 800px;
+      height: 800px;
+      background: rgb(236, 235, 235);
+    }
+
+    .line1{
+      width: 800px;
+      text-align: center;
+    }
+    .line1 span{
+      background: rgb(204, 204, 204);
+    }
+
+    .line2{
+      width: 800px;
+    }
+    .line2 p{
+      width: 300px;
+      margin: 0 auto;
+      background: rgb(175, 227, 251);
+    }
+    .line2 p:last-child{
+      text-align: center;
+      background: rgb(146, 208, 236);
+    }
+
+    .line3{
+      width: 800px;
+      text-align: center;
+    }
+    .line3 p{
+      display: inline-block;
+      width: 60px;
+      background: rgb(160, 245, 167);
+    }
+
+    .line4{
+      width: 800px;
+      display: flex;
+      justify-content: center;
+    }
+    .line4 p{
+      background: rgb(243, 183, 228);
+    }
+
+    .line5{
+      margin: auto;
+      padding: 5px;
+      background: rgb(245, 205, 160);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <div class="line1"><span>内联元素水平居中(inline、inline-block、inline-table、inline-flex元素水平居中都有效)</span></div>
+
+    <div class="line2">
+      <p>块级元素水平居中1</p>
+      <p>块级元素水平居中2</p>
+    </div>
+    
+    <div class="line3">
+      <p>多块级元素水平居中1</p>
+      <p>多块级元素水平居中2</p>
+      <p>多块级元素水平居中3</p>
+    </div>
+    
+    <div class="line4">
+      <p>利用display: flex</p>
+      <p>利用display: flex</p>
+      <p>利用display: flex</p>
+    </div>
+    
+    <table border="1" class="line5">
+      <tr>
+        <td>table水平居中</td>
+        <td>table水平居中</td>
+        <td>table水平居中</td>
+      </tr>
+      <tr>
+        <td>table水平居中</td>
+        <td>table水平居中</td>
+        <td>table水平居中</td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+  </script>
+</body>
+</html>

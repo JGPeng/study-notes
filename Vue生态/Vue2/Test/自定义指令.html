@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" name="" id="">
+        <input type="text" name="" id="" v-focus>
+        <input type="text" name="" id="" v-red-border>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        // 全局指令
+        Vue.directive('focus', {
+            bind(el) {
+                console.log('bind')
+            },
+            inserted(el) {
+                console.log('inserted')
+                el.focus()
+            },
+            update(el) {
+                console.log('update')
+            },
+            componentUpdated(el) {
+                console.log('componentUpdated')
+            },
+            unbind(el) {
+                console.log('unbind')
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'gerald'
+            },
+            // 局部指令
+            directives: {
+                'red-border': {
+                    inserted(el) {
+                        el.style.borderColor = 'red'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

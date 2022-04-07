@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,
+	initial-scale=1.0">
+  <title>margin自动撑满空间技巧</title>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    nav {
+      margin: 0 auto;
+      display: flex;
+      width: 800px;
+      height: 50px;
+      background: #eee;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul:nth-child(1) {
+      display: flex;
+      margin-right: auto;
+      background: yellow;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+      border: 1px solid rgb(120, 120, 120);
+    }
+
+    nav ul:nth-child(2)>li {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: cyan;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li>首页</li>
+      <li>活动</li>
+      <li>充值</li>
+    </ul>
+    <ul>
+      <li></li>
+      <li></li>
+    </ul>
+  </nav>
+</body>
+
+</html>

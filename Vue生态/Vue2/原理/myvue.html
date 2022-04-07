@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{person.name}}--{{person.age}}</h1>
+        <h3>{{person.fav}}</h3>
+        <p>{{msg}}</p>
+        <input type="text" v-model="msg" />
+    </div>
+    <script src="./myvue.js"></script>
+    <script>
+        new MyVue({
+            el: '#app',
+            data: {
+                person: {
+                    name: '小明',
+                    age: 18,
+                    fav: '姑凉'
+                },
+                msg: '努力修仙'
+            }
+        })
+    </script>
+</body>
+
+</html>

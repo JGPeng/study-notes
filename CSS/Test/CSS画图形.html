@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS画图形</title>
+    <style>
+        div {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            background-color: pink;
+        }
+
+        .sector {
+            border-radius: 100px 0 0;
+        }
+
+        .olive {
+            border-radius: 100px 0;
+        }
+
+        .arrow {
+            position: relative;
+            width: 0;
+            height: 0;
+            border: 50px solid;
+            border-color: transparent pink transparent transparent;
+            background-color: white;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -40px;
+            width: 0;
+            height: 0;
+            border: 50px solid;
+            border-color: transparent white transparent transparent;
+        }
+
+        .oval {
+            width: 150px;
+            height: 60px;
+            border-radius: 75px / 30px;
+            /* 水平半径 / 垂直半径 */
+        }
+
+        .love {
+            position: relative;
+            background-color: white;
+            margin-right: 60px;
+        }
+
+        .love::before,
+        .love::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            transform: rotate(50deg);
+            border-radius: 50% 50% 0 0;
+            background-color: pink;
+        }
+
+        .love::before {
+            left: 70px;
+            /* left: 37px; */
+        }
+
+        .love::after {
+            transform: rotate(-50deg);
+        }
+
+        .test {}
+    </style>
+</head>
+
+<body>
+    <div class="sector">扇形</div>
+    <div class="olive">橄榄球形</div>
+    <div class="arrow">箭头</div>
+    <div class="oval">椭圆</div>
+    <div class="love">爱心</div>
+    <div class="test">test</div>
+</body>
+
+</html>

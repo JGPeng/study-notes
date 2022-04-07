@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent {
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+            text-align: center;
+        }
+
+        .child {
+            width: 150px;
+            height: 150px;
+            background-color: yellow;
+        }
+
+        .grandson {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="child">
+            <div class="grandson"></div>
+        </div>
+    </div>
+
+    <script>
+        const grandson = document.querySelector('.grandson')
+        grandson.addEventListener('click', (event) => {
+            console.log(event.target)
+        })
+
+        const child = document.querySelector('.child')
+        child.addEventListener('click', (event) => {
+            console.log(event.target)
+        })
+
+        const parent = document.querySelector('.parent')
+        parent.addEventListener('click', (event) => {
+            console.log(event.target)
+        })
+    </script>
+</body>
+
+</html>

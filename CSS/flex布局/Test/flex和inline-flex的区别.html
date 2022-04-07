@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .content {
+            margin: 20px;
+            width: 400px;
+            border: 1px solid black;
+
+            /* 删除子元素之间的空白符（由于子元素是行内块元素，多余的换行空白符都会被合并转换成一个空白符） */
+            /* 方法一 */
+            display: table;
+            /* 方法二 */
+            /* font-size: 0px; */
+        }
+
+        .box {
+            width: 100px;
+            height: 50px;
+            border: 1px solid pink;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .box-flex {
+            display: flex;
+        }
+
+        .box-inline {
+            display: inline-flex;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        1. display: flex; 不会让容器本身取消它的块装的属性，但它的子元素会变成行内块的的属性
+        2. display: inline-flex; 父级是变成行内块元素，他的子元素也是行内块元素，并且自动换行
+        
+        注意：
+            1. 如果弹性盒子中没有image，那么当子元素的宽度超过父元素时，子元素会被压缩
+            2. 如果弹性盒子中存在image，那么当子元素的宽度超过父元素时，子元素不会被压缩
+     -->
+    <div class="content">
+        <div class="box box-flex">display: flex;</div>
+        <div class="box box-flex">1</div>
+        <div class="box box-flex">2</div>
+        <div class="box box-flex">3</div>
+        <div class="box box-flex">4</div>
+        <div class="box box-flex">5</div>
+    </div>
+    <div class="content">
+        <div class="box box-inline">display: inline-flex;</div>
+        <div class="box box-inline">1</div>
+        <div class="box box-inline">2</div>
+        <div class="box box-inline">3</div>
+        <div class="box box-inline">4</div>
+        <div class="box box-inline">5</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,
+	initial-scale=1.0">
+	<title>移动端通用菜单</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+		main {
+      flex: 1;
+      background: silver;
+    }
+
+    footer {
+      height: 50px;
+      background: #eee;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-top: solid 1px #ccc;
+    }
+
+    footer section {
+      flex: 1;
+      border-right: solid 1px #ccc;
+      align-self: center;
+      text-align: center;
+      background: yellow;
+      font-size: 20px;
+    }
+
+    footer section:last-child {
+      border-right: none;
+    }
+	</style>
+</head>
+
+<body>
+  <main></main>
+  <footer>
+    <section>AAA</section>
+    <section>BBB</section>
+    <section>CCC</section>
+  </footer>
+</body>
+</html>

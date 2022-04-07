@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 数据描述符
+         *   value -- 属性对应的值，默认值为undefined
+         *   writable -- 属性是否可修改，默认值为false
+         * 存取描述符
+         *   get -- 属性的 getter 函数，默认值为undefined
+         *   set -- 属性的 setter 函数，默认值为undefined
+         * 可选键值
+         *   configurable -- 属性是否可删除，默认值为false
+         *   enumerable -- 属性是否可迭代，默认值为false
+         */
+
+        // 初始化
+        let obj = { name: 'abc', age: 18 }
+        console.log(obj)
+
+        Object.defineProperty(obj, 'name', {
+            // 默认值
+            value: 'gerald',
+            writable: false,
+            configurable: false,
+            enumerable: false
+        })
+        console.log(obj) // 输出初始化的值
+
+        // 测试是否可修改
+        obj.age = 20
+        obj.name = 'ABC'
+        console.log(obj) // name属性无法被修改
+
+        // 测试是否可删除
+        delete obj.name
+        console.log(obj) // name属性无法被删除
+
+        // 测试是否可迭代
+        for (let key in obj) {
+            console.log(key, obj[key]) // name属性无法被迭代
+        }
+    </script>
+</body>
+
+</html>

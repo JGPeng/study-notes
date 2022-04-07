@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传图片</title>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+        <br>
+        <br>
+        <img id="imageData" src="" alt="未加载。。。" />
+    </div>
+    <script>
+        const avatar = document.querySelector('#avatar')
+        const imageData = document.querySelector('#imageData')
+        avatar.addEventListener('change', (e) => {
+            let resultFile = e.srcElement.files[0]
+            console.log('resultFile', typeof resultFile, resultFile)
+            let str = JSON.stringify(resultFile)
+            console.log(str)
+            let reader = new FileReader()
+            reader.readAsDataURL(resultFile)
+            reader.onload = function (e) {
+                imageData.src = this.result
+                console.log('this.result.length', this.result.length)
+                // 如果不嫌字符串长度太长，可以将this.result存进数据库中
+            }
+        })
+    </script>
+</body>
+
+</html>

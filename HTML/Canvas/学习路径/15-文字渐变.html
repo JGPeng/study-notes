@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas 默认是行内元素 -->
+    <canvas width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+    <script>
+        var canvas = document.querySelector('canvas')
+        var ctx = canvas.getContext('2d')
+
+        /**
+            ctx.createLinearGradient(x0, y0, x1, y1);
+                x0 - 起点的 x 轴坐标。
+                y0 - 起点的 y 轴坐标。
+                x1 - 终点的 x 轴坐标。
+                y1 - 终点的 y 轴坐标。
+         */
+        var gradient = ctx.createLinearGradient(0,0,canvas.width,0)
+        /**
+            gradient.addColorStop(offset, color);
+                offset - 0到1之间的值，超出范围将抛出INDEX_SIZE_ERR错误
+                color - CSS颜色值 <color>。如果颜色值不能被解析为有效的CSS颜色值 <color>，将抛出SYNTAX_ERR错误。
+         */ 
+        gradient.addColorStop(0, 'yellow')
+        gradient.addColorStop(.3, 'blue')
+        gradient.addColorStop(.5, 'purple')
+        gradient.addColorStop(.7, 'grey')
+        gradient.addColorStop(1, 'red')
+
+        ctx.font = '40px 微软雅黑'
+        ctx.fillStyle = gradient
+        ctx.fillText('Hello World！Hello World。', 0, 100, 500)
+
+        ctx.strokeStyle = gradient
+        ctx.strokeText('Hello World！Hello World。', 0, 300, 500)
+
+    </script>
+</body>
+
+</html>

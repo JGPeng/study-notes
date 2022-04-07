@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        strokeLine(ctx, [100, 100], [400, 100], 'red', 10)
+        strokeLine(ctx, [400, 100], [400, 400], 'yellow', 10)
+        strokeLine(ctx, [400, 400], [100, 400], 'blue', 10)
+        strokeLine(ctx, [100, 400], [100, 100], 'orange', 10)
+
+        function strokeLine(ctx, moveTo, lineTo, style, width) {
+            ctx.beginPath()
+            ctx.lineWidth = width
+            ctx.strokeStyle = style
+            ctx.moveTo(...moveTo)
+            ctx.lineTo(...lineTo)
+            ctx.stroke()
+            ctx.closePath()
+        }
+
+        function drawLine(moveTo, lineTo, color, width) {
+            ctx.beginPath()
+            ctx.moveTo(...moveTo)
+            ctx.lineTo(...lineTo)
+            ctx.strokeStyle = color || 'black'
+            ctx.lineWidth = width || 5
+            ctx.stroke()
+            ctx.closePath()
+        }
+    </script>
+</body>
+
+</html>

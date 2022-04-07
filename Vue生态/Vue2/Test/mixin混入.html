@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="handle">按钮</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        /**
+         * 数据对象合并：数据对象在内部会进行浅合并 (一层属性深度)，在和组件的数据发生冲突时以组件数据优先。
+         * 
+         * 钩子函数合并：同名钩子函数将混合为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子之前调用。
+         * 
+         * methods, components 和 directives合并: 将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。
+         * 
+         * 全局混入：一旦使用全局混入对象，将会影响到 所有 之后创建的 Vue 实例。（Vue.mixin({...})）
+         */
+        var mixin1 = {
+            data() {
+                return {
+                    msg: 'mixin1',
+                    foo: 'foo1'
+                }
+            },
+            created: function () {
+                console.log('created-mixin1', this.msg, this.foo)
+                this.handle()
+            },
+            mounted: function () {
+                console.log('mounted-mixin1', this.msg, this.foo)
+            },
+            updated: function () {
+                console.log('updated-mixin1', this.msg, this.foo)
+            },
+            methods: {
+                handle() {
+                    console.log('methods-handle-mixin1', this.msg, this.foo)
+                }
+            }
+        }
+        var mixin2 = {
+            data() {
+                return {
+                    msg: 'mixin2',
+                    foo: 'foo2'
+                }
+            },
+            created: function () {
+                console.log('created-mixin2', this.msg, this.foo)
+                this.handle()
+            },
+            mounted: function () {
+                console.log('mounted-mixin2', this.msg, this.foo)
+            },
+            updated: function () {
+                console.log('updated-mixin2', this.msg, this.foo)
+            },
+            methods: {
+                handle() {
+                    console.log('methods-handle-mixin2', this.msg, this.foo)
+                }
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            mixins: [mixin1, mixin2],
+            data: {
+                msg: 'abc',
+                foo: 'foo'
+            },
+            created() {
+                console.log('created', this.msg, this.foo)
+                this.handle()
+            },
+            mounted: function () {
+                console.log('mounted', this.msg, this.foo)
+            },
+            updated: function () {
+                console.log('updated', this.msg, this.foo)
+            },
+            methods: {
+                handle() {
+                    console.log('Vue-handle', this.msg, this.foo)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

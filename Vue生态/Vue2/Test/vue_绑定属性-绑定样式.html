@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>Test</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p style="color: red">style="color: red"</p>
+      <p :style="{color: 'red', 'font-size': '50px'}">:style="{color: 'red', 'font-size': '50px'}"</p>
+      <p :style="obj1">:style="obj1"</p>
+      <p :style="[obj1, obj2]">:style="[obj1, obj2]"</p>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          obj1: {
+            'color': 'blue',
+            'font-size': '100px'
+          },
+          obj2: {
+            'background-color': 'skyblue'
+          },
+        },
+        methods: {}
+      })
+    </script>
+  </body>
+</html>

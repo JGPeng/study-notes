@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS实现过渡动画</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        const box = document.querySelector('#box')
+        let val = 0
+        let dir = 2
+        let id = null
+        function fn() {
+            box.style.marginLeft = `${val += dir}px`
+            if (val >= 200 || val <= 0) {
+                dir = -dir
+            }
+        }
+
+        // 方法一：通过定时器实现
+        // setInterval(fn, 1000 / 60);
+
+        // 方法二：通过requestAnimationFrame实现
+        (function loop() {
+            fn()
+            id = requestAnimationFrame(loop)
+            if (val == 100) {
+                cancelAnimationFrame(id)
+            }
+        })()
+
+        // 执行顺序测试
+        requestAnimationFrame(() => {
+            console.log(4, 'requestAnimationFrame')
+        })
+        setTimeout(() => {
+            console.log(3, 'setTimeout')
+        })
+        Promise.resolve().then(() => {
+            console.log(2, 'Promise.resolve')
+        })
+        console.log(1, 'abc')
+        window.addEventListener('load', () => {
+            console.log('b onload')
+        })
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('a DOMContentLoaded')
+        })
+        
+    </script>
+</body>
+
+</html>

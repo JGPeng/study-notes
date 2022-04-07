@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,
+	initial-scale=1.0">
+	<title>小米购物页-弹性盒模型</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		header {
+			height: 60px;
+			background: blueviolet;
+		}
+
+		main {
+			flex: 1;
+			background: #bbb6b6;
+			display: flex;
+		}
+
+		main nav {
+			width: 80px;
+			background-color: yellow;
+		}
+
+		main article {
+			flex: 1;
+			background-color: yellowgreen;
+		}
+
+		footer {
+			background: red;
+			height: 80px;
+			display: flex;
+			align-items: center;
+		}
+
+		footer div {
+			flex: 1;
+			text-align: center;
+			line-height: 3em;
+			color: #555;
+		}
+
+		footer div:nth-child(n+2) {
+			border-left: solid 1px black;
+		}
+	</style>
+</head>
+
+<body>
+	<header></header>
+
+	<main>
+		<nav>
+			123
+		</nav>
+		<article>
+			abc
+		</article>
+	</main>
+
+	<footer>
+		<div>哈哈</div>
+		<div>哈哈</div>
+		<div>哈哈</div>
+		<div>哈哈</div>
+	</footer>
+
+</body>
+
+</html>

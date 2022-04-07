@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>闭包实现单例模式</title>
+</head>
+
+<body>
+  <div>
+    <button id="loginBtn">登陆</button>
+  </div>
+
+  <script>
+    var createLogin = function() {
+      var div = document.createElement("div");
+      div.innerHTML = '我是登陆的弹窗';
+      div.style.display = 'none';
+      document.body.appendChild(div);
+      return div;
+    }
+
+    var getSingle = function(el) {
+      var result;
+      return function() {
+        return result || (result = el.apply(this, arguments));
+      }
+    }
+
+    var create = getSingle(createLogin);
+    document.getElementById("loginBtn").onclick = function() {
+      var loginLay = create();
+      loginLay.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

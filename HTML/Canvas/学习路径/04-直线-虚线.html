@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        let dist = 10  // 虚线中点与点的距离
+
+        // 横线
+        for (let i = 0; i < 30; i++) {
+            strokeLine(ctx, [100 + i * dist, 100], [105 + i * dist, 100], 'red', 2)
+        }
+
+        // 竖线
+        for (let i = 0; i < 30; i++) {
+            strokeLine(ctx, [100, 100 + i * dist], [100, 105 + i * dist], 'green', 2)
+        }
+
+        // 斜线
+        for (let i = 0; i < 30; i++) {
+            strokeLine(ctx, [100 + i * dist, 100 + i * dist], [105 + i * dist, 105 + i * dist], 'orange', 2)
+        }
+
+        function strokeLine(ctx, moveTo, lineTo, style, width) {
+            ctx.beginPath()
+            ctx.lineWidth = width
+            ctx.strokeStyle = style
+            ctx.moveTo(...moveTo)
+            ctx.lineTo(...lineTo)
+            ctx.stroke()
+            ctx.closePath()
+        }
+    </script>
+</body>
+
+</html>

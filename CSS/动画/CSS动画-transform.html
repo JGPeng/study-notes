@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS动画-transform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            margin: 30px;
+        }
+
+        img {
+            margin-left: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        /* rotate 旋转 */
+        .rotate {
+            animation: rotate 2s infinite linear 1s;
+        }
+
+        .rotateX {
+            animation: rotateX 2s 1 linear;
+        }
+
+        .rotateY {
+            animation: rotateY 2s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotateX {
+            0% {
+                transform: rotateX(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+
+        @keyframes rotateY {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        /* translate 移动 */
+        .translate {
+            animation: translate 2s infinite linear;
+        }
+
+        .translateX {
+            animation: translateX 2s infinite linear;
+        }
+
+        .translateY {
+            animation: translateY 2s infinite linear;
+        }
+
+        @keyframes translate {
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        @keyframes translateX {
+            100% {
+                transform: translateX(100px);
+            }
+        }
+
+        @keyframes translateY {
+            100% {
+                transform: translateY(100px);
+            }
+        }
+
+        /* scale 缩放 */
+        .scale {
+            animation: scale 2s infinite linear;
+        }
+
+        .scaleX {
+            animation: scaleX 2s infinite linear;
+        }
+
+        .scaleY {
+            animation: scaleY 2s infinite linear;
+        }
+
+        @keyframes scale {
+            0% {
+                transform: scale(.1, .1);
+            }
+
+            100% {
+                transform: scale(1, 1);
+            }
+        }
+
+        @keyframes scaleX {
+            0% {
+                transform: scaleX(.1);
+            }
+
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes scaleY {
+            0% {
+                transform: scaleY(.1);
+            }
+
+            100% {
+                transform: scaleY(1);
+            }
+        }
+
+        /* skew 扭曲 */
+        .skew {
+            animation: skew 2s infinite linear;
+        }
+
+        .skewX {
+            animation: skewX 2s infinite linear;
+        }
+
+        .skewY {
+            animation: skewY 2s infinite linear;
+        }
+
+        @keyframes skew {
+            0% {
+                transform: skew(0deg, 0deg);
+            }
+
+            100% {
+                transform: skew(45deg, 45deg);
+            }
+        }
+
+        @keyframes skewX {
+            0% {
+                transform: skewX(0deg);
+            }
+
+            100% {
+                transform: skewX(45deg);
+            }
+        }
+
+        @keyframes skewY {
+            0% {
+                transform: skewY(0deg);
+            }
+
+            100% {
+                transform: skewY(45deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>rotate 旋转</h1>
+        <img src="../../images/girl.jpg" alt="" class="rotate">
+        <img src="../../images/girl.jpg" alt="" class="rotateX">
+        <img src="../../images/girl.jpg" alt="" class="rotateY">
+    </div>
+    <hr>
+    <div>
+        <h1>translate 移动</h1>
+        <img src="../../images/girl.jpg" alt="" class="translate">
+        <img src="../../images/girl.jpg" alt="" class="translateX">
+        <img src="../../images/girl.jpg" alt="" class="translateY">
+    </div>
+    <hr>
+    <div>
+        <h1>scale 缩放</h1>
+        <img src="../../images/girl.jpg" alt="" class="scale">
+        <img src="../../images/girl.jpg" alt="" class="scaleX">
+        <img src="../../images/girl.jpg" alt="" class="scaleY">
+    </div>
+    <hr>
+    <div>
+        <h1>skew 扭曲</h1>
+        <img src="../../images/girl.jpg" alt="" class="skew">
+        <img src="../../images/girl.jpg" alt="" class="skewX">
+        <img src="../../images/girl.jpg" alt="" class="skewY">
+    </div>
+</body>
+
+</html>

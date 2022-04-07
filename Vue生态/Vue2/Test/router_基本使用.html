@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>Test</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script src='./../plugin/vue-router.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .local-active{
+        background-color: springgreen;
+      }
+      .active{
+        background-color: skyblue;
+      }
+      .router-link-active{
+        background-color: red;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>VueRouter基本使用</p>
+      <div>
+        <!-- active-class 用于设置链接激活时使用的CSS类名（局部） -->
+        <router-link active-class="local-active" tag="button" to="/foo?name=gerald&age=22">Go to Foo</router-link>
+        <router-link tag="button" to="/bar/pjg/18">Go to Bar</router-link>
+        <router-link tag="button" to="/parent">Go to Parent</router-link>
+      </div>
+      <router-view></router-view>
+    </div>
+
+    <template id="foo">
+      <div>
+        foo
+      </div>
+    </template>
+    <template id="bar">
+      <div>
+        bar
+      </div>
+    </template>
+
+    <template id="parent">
+      <div>
+        <p>嵌套路由-父</p>
+        <div>
+          <router-link tag="button" to="/parent/son">Go to Son（声明式：to属性）</router-link>
+        </div>
+        <!-- 命名视图 -->
+        <router-view></router-view>
+        <router-view name="name1"></router-view>
+        <router-view name="name2"></router-view>
+      </div>
+    </template>
+
+    <template id="son">
+      <div>
+        <p>嵌套路由-子</p>
+        <router-view></router-view>
+      </div>
+    </template>
+
+    <script>
+      const Foo = { 
+        template: '#foo',
+        created() {
+          console.log('route', this.$route)
+          console.log('query', this.$route.query)
+        }
+      }
+      const Bar = { 
+        template: '#bar',
+        created() {
+          console.log('route', this.$route)
+          console.log('params', this.$route.params)
+        }
+      }
+      const Parent = { 
+        template: '#parent',
+      }
+      const Son = { 
+        template: '#son',
+      }
+      const routes = [
+        {path: '/foo', component: Foo},
+        {path: '/bar/:name/:age', component: Bar},
+        {
+          path: '/parent',
+          component: Parent,
+          // 要注意，以 / 开头的嵌套路径会被当作根路径。这让你充分的使用嵌套组件而无须设置嵌套的路径
+          children: [
+            {
+              path: 'son',
+              components: {
+                default: Son,
+                name1: Foo,
+                name2: Bar
+              }
+            }
+          ]
+        }
+      ]
+      const router = new VueRouter({
+        routes: routes,
+        //linkActiveClass 用于设置链接激活时使用的CSS类名（全局）
+        linkActiveClass: 'active'
+      })
+
+      let vue = new Vue({
+        el: '#app',
+        router,
+        data: {},
+        methods: {},
+        computed: {
+          routeName() {
+            return this.$route.params
+          }
+        },
+        // 使用watch监听路由变化
+        watch: {
+          "$route.path": function(newValue, oldValue) {
+            console.log('watch', newValue, oldValue)
+          }
+        }
+        //编程式：router.push(...)
+        /**
+         * 该方法的参数可以是字符串或对象
+         * （如果对象中提供了path，则params会被忽略）
+         * 有效参数：
+         * router.push('home')
+         * router.push({ path: 'home' })
+         * router.push({ name: 'user', params: { userId: '123' }})  // -> /user/123
+         * router.push({ path: 'register', query: { name: 'private', age: 18 }})  // -> /register?plan=private&age=18
+         */
+      })
+    </script>
+  </body>
+</html>

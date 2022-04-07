@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>防抖函数的理解及实现</title>
+</head>
+
+<body>
+  <div>
+    <input id="input" type="text" />
+  </div>
+
+  <script>
+    /**
+     * 防抖函数：
+     * 当持续触发事件 一定时间内没有再触发事件 事件处理函数才会执行一次
+     * 如果设定的时间到来之前 又一次触发了事件 就重新开始延时
+     * 
+     * 实际应用：
+     * 使用echarts时，改变浏览器宽度的时候，希望重新渲染
+     * echarts的图像，可以使用此函数，提升性能（虽然echarts有自带的resize函数）
+     * 典型的案例就是输入搜索，解决由于异步操作导致请求返回的response数据不准确。
+    */
+    var input = document.getElementById('input');
+    function debounce(delay) {
+      let timer;
+      return function(value) {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+          console.log(value);
+        }, delay);
+      }
+    }
+    var a = debounce(1000);
+    input.addEventListener("keyup", function(e) {
+      a(e.target.value);
+    });
+
+  </script>
+</body>
+</html>

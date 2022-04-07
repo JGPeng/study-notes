@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        // 填充颜色
+        ctx.fillStyle = 'red'
+
+        // 线条与线条间接合处的样式
+        // round-圆角  bevel-斜角  miter-直角（默认）
+        ctx.lineJoin = 'bevel'
+
+        // 绘制一个填充矩形，默认填充色为黑色
+        // fillRect(x, y, width, height)
+        // x: 横坐标
+        // y: 纵坐标
+        // width: 矩形宽度
+        // height: 矩形高度
+        ctx.fillRect(100, 100, 150, 100)
+
+        // 绘制矩形边框
+        ctx.lineWidth = 5
+        ctx.strokeStyle = 'blue'
+        ctx.strokeRect(100, 100, 150, 100)
+
+        // 清楚指定矩形区域，让清楚部分完全透明
+        ctx.clearRect(150, 130, 50, 40)
+    </script>
+</body>
+
+</html>

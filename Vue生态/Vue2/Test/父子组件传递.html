@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>父组件</h2>
+        <button @click="getChildren">获取子组件实例-children</button>
+        <button @click="getParent">获取父组件实例-parent</button>
+        <button @click="getRefChild">获取子组件实例-ref</button>
+        <button @click="handle">修改子类属性</button>
+        <hr>
+        <Child :str="str" ref="ccc"></Child>
+        <Child2></Child2>
+    </div>
+
+    <template id="child">
+        <div>
+            <h2>子组件</h2>
+            <h3>{{msg}}</h3>
+            <h3>{{info.name}} --- {{info.age}}</h3>
+            <button @click="getChildren">获取子组件实例-children</button>
+            <button @click="getParent">获取父组件实例-parent</button>
+            <button @click="getAttrs">getAttrs</button>
+            <hr>
+            <Grandson :info="info" v-bind="$attrs"></Grandson>
+        </div>
+    </template>
+
+    <template id="child2">
+        <div>
+            <h2>子组件2</h2>
+        </div>
+    </template>
+
+    <template id="grandson">
+        <div>
+            <h2>孙子组件</h2>
+            <button @click="getChildren">获取子组件实例-children</button>
+            <button @click="getParent">获取父组件实例-parent</button>
+            <button @click="handle">修改父类属性</button>
+            <button @click="getAttrs">getAttrs</button>
+        </div>
+    </template>
+
+    <script src="./vue.js"></script>
+    <script>
+        const grandson = {
+            template: '#grandson',
+            methods: {
+                getChildren() {
+                    console.log(this.$children)
+                },
+                getParent() {
+                    console.log(this.$parent)
+                },
+                getAttrs() {
+                    console.log(this.$attrs)
+                },
+                handle() {
+                    this.$parent.msg = '修改父类属性成功'
+                }
+            }
+        }
+
+        Vue.component('child', {
+            template: '#child',
+            components: {
+                grandson
+            },
+            data() {
+                return {
+                    msg: '拉拉哈哈',
+                    info: {
+                        name: 'gerald',
+                        age: 18
+                    }
+                }
+            },
+            methods: {
+                getChildren() {
+                    console.log(this.$children)
+                },
+                getParent() {
+                    console.log(this.$parent)
+                },
+                getAttrs() {
+                    console.log(this.$attrs)
+                }
+            }
+        })
+
+        Vue.component('child2', {
+            template: '#child2',
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                str: '学习使我快乐'
+            },
+            methods: {
+                getChildren() {
+                    console.log(this.$children)
+                    this.$children[0].msg = 'abc'
+                },
+                getParent() {
+                    console.log(this.$parent)
+                },
+                handle() {
+                    this.$children.msg = '修改子类属性成功'
+                },
+                getRefChild() {
+                    console.log(this.$refs.ccc)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

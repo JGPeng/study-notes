@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            position: relative;
+            width: 100%;
+        }
+
+        img,
+        #ticket {
+            top: 20px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        img {
+            position: absolute;
+        }
+
+        #ticket {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="http://gerald.net3v.net/assets/img/%E5%A5%B3%E5%AD%A9.jpg" width="300" height="200" alt="girl"
+            srcset="">
+        <canvas id="ticket"></canvas>
+    </div>
+    <script>
+        const ticket = document.getElementById('ticket')
+        const ctx = ticket.getContext('2d')
+        ctx.fillStyle = 'grey'
+        ctx.fillRect(0, 0, 300, 200)
+
+        ticket.addEventListener('mousedown', (e) => {
+            ticket.addEventListener('mousemove', onMouseMove)
+        })
+        ticket.addEventListener('mouseup', () => {
+            ticket.removeEventListener('mousemove', onMouseMove)
+        })
+        const onMouseMove = (e) => {
+            const len = 10
+            ctx.clearRect(e.offsetX - len, e.offsetY - len * 2, len * 2, len * 2)
+        }
+    </script>
+</body>
+
+</html>

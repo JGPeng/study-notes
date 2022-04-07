@@ -1,0 +1,55 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.head {
+    width: 1200px;
+    margin: 0 auto;
+}
+.head_title {
+    line-height: 80px;
+    font-size: 38px;
+    color: blue;
+}
+.toIndex {
+    font-size: 20px;
+    margin: 20px;
+}
+.toIndex a{
+    color: coral;
+}
+
+.main {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.main_form {
+    width: 100%;
+}
+.form_name {
+
+}
+.form_comment {
+
+}
+.input_text {
+
+}
+.input_name {
+
+}
+.input_comment {
+    
+}
+
+.main_publish {
+    width: 100%;
+}
+.main_publish button {
+    padding: 5px 15px;
+    margin: 10px auto;
+    font-size: 26px;
+    color: coral;
+}

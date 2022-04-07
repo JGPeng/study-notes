@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+</head>
+
+<body>
+    <h1>首页</h1>
+    <br>
+    <a href="http://localhost:3001/register">注册</a>
+    <br>
+    <br>
+    <input id="btn" type="button" value="获取用户信息">
+    <br>
+    <script>
+        const btn = document.querySelector('#btn')
+        btn.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const div = document.createElement('div')
+                    div.innerText = xhr.responseText
+                    document.body.appendChild(div)
+                }
+            }
+            xhr.open('GET', 'http://localhost:3001/api/getAllUser', true)
+            xhr.send()
+        })
+    </script>
+</body>
+
+</html>

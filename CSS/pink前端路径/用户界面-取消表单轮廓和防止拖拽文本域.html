@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户界面-取消表单轮廓和防止拖拽文本域</title>
+  <style>
+    input, textarea {
+      /* 取消表单轮廓 */
+      outline: none;
+    }
+    textarea {
+      /* 防止拖拽文本域 */
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <input type="text"/>
+    <br/>
+    <br/>
+    <textarea rows="5" cols="30"></textarea>
+  </div>
+</body>
+</html>

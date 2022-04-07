@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img,canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+        <img src="http://gerald.net3v.net/assets/img/%E5%A5%B3%E5%AD%A9.jpg" width="600" height="600" alt="girl"
+            srcset="">
+        <canvas id="ticket" width="600" height="600"></canvas>
+    <script>
+        const ticket = document.getElementById('ticket')
+        const ctx = ticket.getContext('2d')
+        ctx.fillStyle = 'grey'
+        ctx.fillRect(0, 0, 600, 600)
+        ctx.save()
+        ticket.onmousedown=(e) => {
+            window.onmousemove=(e)=>{
+				ctx.clearRect(e.offsetX,e.offsetY,50,50)
+            }
+        }
+        ticket.onmouseup=() => {
+            window.onmousemove=(e)=>{}
+        }
+    </script>
+</body>
+
+</html>

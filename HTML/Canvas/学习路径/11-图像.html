@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 100px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="../../images/girl.jpg" alt="" srcset="">
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const img = document.querySelector('img')
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        // 绘制图像
+        img.onload = () => {
+            // drawImage(image, dx, dy)
+            ctx.drawImage(img, 0, 0)
+
+            // drawImage(image, dx, dy, dWidth, dHeight)
+            ctx.drawImage(img, 350, 0, 100, 100)
+            
+            // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+            // 从 source image 剪裁的矩形图会按比例放到 destination vancas 中
+            ctx.drawImage(img, 50, 50, 150, 150, 250, 350, 200, 100)
+        }
+    </script>
+</body>
+
+</html>

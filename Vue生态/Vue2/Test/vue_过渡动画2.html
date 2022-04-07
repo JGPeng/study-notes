@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>过渡动画2</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/animate.css@3.5.2/animate.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .div1{
+        width: 100px;
+        height:100px;
+        background-color: red;
+      }
+      .a{
+        opacity: 0;
+      }
+      .b{
+        opacity: 1;
+        margin-left: 300px;
+      }
+      .c{
+        transition: all 2s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <button @click="handleShow">点击</button>
+      <!-- JS钩子 -->
+      <transition
+        appear
+        :css="false"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter">
+        <div class="div1" v-show="isShow"></div>
+      </transition>
+
+      <!-- JS钩子-第三方JS动画库Velocity.js -->
+      <transition
+        appear
+        :css="false"
+        @before-enter="beforeEnter"
+        @enter="enter2"
+        @after-enter="afterEnter">
+        <div class="div1" v-show="isShow"></div>
+      </transition>
+
+      <!-- 自定义过渡的类名 -->
+      <transition
+        appear
+        enter-class="a"
+        enter-to-class="b"
+        enter-active-class="c">
+        <div class="div1" v-show="isShow"></div>
+      </transition>
+
+      <!-- 第三方CSS动画库animated.css -->
+      <transition
+        appear
+        enter-class=""
+        enter-to-class=""
+        enter-active-class="animated bounceInRight">
+        <div class="div1" v-show="isShow"></div>
+      </transition>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          isShow: true
+        },
+        methods: {
+          handleShow() {
+            this.isShow = !this.isShow
+          },
+          beforeEnter(el) {
+            console.log('beforeEnter')
+            el.style.opacity = '0'
+          },
+          enter(el, done) {
+            /**
+             * 只有调用了done回调函数才会执行afterEnter钩子函数；
+             * 如果要通过JS钩子来实现过渡动画，必须在动画执行过程中的回调函数中写上 el.offsetWidth 或 el.offsetHeight ；
+             * 如果想让元素一进来就有动画，就需要给done回调函数加上延迟。
+            */
+            console.log('enter')
+            el.style.transition = 'all 2s'
+            el.offsetWidth
+            setTimeout(function() {
+              done()
+            }, 0)
+          },
+          afterEnter(el) {
+            console.log('afterEnter')
+            el.style.opacity = '1'
+            el.style.marginLeft = '200px'
+          },
+          enter2(el, done) {
+            Velocity(el, {opacity:1, marginLeft:'500px'}, 3000);
+            done();
+          },
+        }
+      })
+    </script>
+  </body>
+</html>

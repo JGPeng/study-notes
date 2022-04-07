@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>Test</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p v-color="'blue'">全局自定义指令</p>
+      <p v-color="myColor">全局自定义指令</p>
+      <p v-local-color="myColor">app-局部自定义指令</p>
+      <input type="text" v-focus />
+    </div>
+    <div id="app2">
+      <p v-local-color="myColor">app2-局部自定义指令</p>
+    </div>
+    <script>
+      /**
+       * 注意点：在自定义指令的时候，在指定指令名称的时候，不需要写v-
+       * 注意点：指令可以在不同的生命周期阶段执行
+       * bind：指令被绑定到元素上的时候执行
+       * inserted：绑定指令的元素被添加到父元素上的时候调用
+       * 
+      */
+      //全局自定义指令：在任何一个Vue实例控制的区域中都可以使用
+      Vue.directive('color', {
+        bind: function(el, binding) {
+          if(binding.value) {
+            el.style.color = binding.value;
+          } else {
+            el.style.color = 'red';
+          }
+        }
+      })
+      Vue.directive('focus', {
+        inserted: function(el) {
+          el.focus();
+        }
+      })
+
+
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          myColor: 'skyblue'
+        },
+        methods: {},
+        //局部自定义指令
+        directives: {
+          'localColor': {
+            bind: function(el, binding) {
+              el.style.color = binding.value;
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

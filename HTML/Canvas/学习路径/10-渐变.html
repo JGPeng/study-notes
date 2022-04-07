@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        // 创建线条渐变: createLinearGradient(x, y, x1, y1)
+        const grd = ctx.createLinearGradient(50, 50, 350, 50)
+        // addColorStop()方法指定颜色停止，参数使用坐标来描述，可以是0至1
+        grd.addColorStop(0, 'red')
+        grd.addColorStop(1, 'black')
+        // 填充渐变
+        ctx.fillStyle = grd
+        ctx.fillRect(50, 50, 350, 100)
+
+        // 创建一个径向/圆渐变: createRadialGradient(x,y,r,x1,y1,r1) 
+        const grd2 = ctx.createRadialGradient(50, 200, 100, 400, 300, 100)
+        grd2.addColorStop(0, 'blue')
+        grd2.addColorStop(1, 'yellow')
+        ctx.fillStyle = grd2
+        ctx.fillRect(50, 200, 350, 100)
+    </script>
+</body>
+
+</html>

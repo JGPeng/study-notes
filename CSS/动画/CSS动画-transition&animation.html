@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS动画-transition&animation</title>
+    <style>
+        div {
+            margin: 30px;
+        }
+
+        /* transition */
+        .div-transition {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f40;
+            /* transition-property: width, height; */
+            transition-property: all;
+            transition-duration: 1s;
+            transition-timing-function: ease-in;
+            transition-delay: 0.2s;
+        }
+
+        .div-transition:hover {
+            height: 200px;
+            width: 200px;
+            border-radius: 30%;
+        }
+
+        /* animation */
+        .div-animation {
+            width: 50px;
+            height: 50px;
+            background: #f40;
+            border-radius: 50%;
+            animation-name: mymove;
+            animation-duration: 2s;
+            animation-timing-function: ease;
+            animation-delay: 0s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes mymove {
+            0% {
+                width: 50px;
+                height: 50px;
+            }
+
+            50% {
+                width: 100px;
+                height: 100px;
+            }
+
+            100% {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>transition 效果 - hover 触发</h1>
+    <div class="div-transition"></div>
+    <hr>
+    <h1>animation 效果 - 按钮控制动画状态</h1>
+    <button onclick="pause()">暂停</button>
+    <button onclick="run()">恢复</button>
+    <div class="div-animation"></div>
+    <hr>
+    
+    <script>
+        function pause() {
+            document.querySelector('.div-animation').style.animationPlayState = "paused"
+        }
+        function run() {
+            document.querySelector('.div-animation').style.animationPlayState = "running"
+        }
+    </script>
+</body>
+
+</html>

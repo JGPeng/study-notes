@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>v-on修饰符</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        margin: 30px;
+      }
+      .div1{
+        width: 200px;
+        height: 200px;
+        background-color: skyblue;
+        color: white;
+      }
+      .div2{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+      .div3{
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        .once 只触发一次回调
+        .prevent 调用 event.preventDefault()
+        .stop 调用 event.stopPropagetion()
+        .self 只当事件是从侦听器绑定的元素本身触发时才触发回调
+        .capture 添加事件侦听器时使用 capture 模式
+       -->
+      <button @click="myFunc">点击</button><br>
+      <button @click.once="myFunc">once点击</button><br>
+      <!-- .prevent 可以阻止元素的默认行为 -->
+      <a href="https://www.baidu.com" @click.prevent="myFunc">prevent点击</a><br>
+      <!-- .stop 可以阻止事件冒泡 -->
+      <div class="div1" @click="myFunc1">
+        div1
+        <div class="div2" @click.stop="myFunc2">
+          div2
+          <div class="div3" @click="myFunc3">div3</div>
+        </div>
+      </div><br>
+      <!-- .self 只有当前元素被触发时才执行事件 -->
+      <div class="div1" @click="myFunc1">
+        div1
+        <div class="div2" @click.self="myFunc2">
+          div2
+          <div class="div3" @click="myFunc3">div3</div>
+        </div>
+      </div><br>
+      <!-- .capture 事件捕获，先执行父级事件，再执行子级事件 -->
+      <div class="div1" @click.capture="myFunc1">
+        div1
+        <div class="div2" @click.capture="myFunc2">
+          div2
+          <div class="div3" @click.capture="myFunc3">div3</div>
+        </div>
+      </div><br>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+          myFunc() {
+            alert('哈哈哈');
+          },
+          myFunc1() {
+            alert('myFunc1');
+          },
+          myFunc2() {
+            alert('myFunc2');
+          },
+          myFunc3() {
+            alert('myFunc3');
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

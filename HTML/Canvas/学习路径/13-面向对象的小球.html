@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        function Ball() {
+            this.r = randomNumber(20) + 15  // [15,35)
+            this.x = randomNumber(500 - this.r * 2) + this.r + 1  // [r+1,500-r]
+            this.y = randomNumber(500 - this.r * 2) + this.r + 1  // [r+1,500-r]
+            this.xSpeed = randomNumber(8) + 2  // [2,10)
+            this.ySpeed = randomNumber(8) + 2  // [2,10)
+            this.color = randomColor()
+        }
+        Ball.prototype.show = function () {
+            this.run()
+            ctx.beginPath()
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
+            ctx.fillStyle = this.color
+            ctx.fill()
+        }
+        Ball.prototype.run = function () {
+            if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
+                this.xSpeed = -this.xSpeed
+            }
+            this.x += this.xSpeed
+            if (this.y + this.r >= canvas.height || this.y - this.r <= 0) {
+                this.ySpeed = -this.ySpeed
+            }
+            this.y += this.ySpeed
+        }
+
+        let ballArr = []
+        for (let i = 0; i < 18; i++) {
+            let ball = new Ball()
+            ballArr.push(ball)
+            ball.show()
+        }
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            Array.prototype.forEach.call(ballArr, function (el) {
+                el.show()
+            })
+        }, 100)
+
+        // 返回随机的 16 进制颜色
+        function randomColor() {
+            return '#' + parseInt(Math.random() * 0xffffff).toString(16)
+        }
+        // 返回 [0, num) 之间的整数
+        function randomNumber(num) {
+            return parseInt(Math.random() * num)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .one-class {
+            color: red;
+        }
+
+        .two-class {
+            color: blue;
+        }
+
+        .index-class {
+            background-color: yellow;
+        }
+
+        .error-class {
+            color: white;
+            background-color: red;
+        }
+
+        .active {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Hello VueRouter!</h1>
+        <button @click="getRouter">获取路由信息</button>
+        <router-link to="/one">Go to One</router-link>
+        <router-link to="/one/test">Go to OneTest</router-link>
+        <router-link to="/two">Go to Two</router-link>
+        <hr>
+        <router-view></router-view>
+    </div>
+
+    <template id="one">
+        <div class="one-class">
+            <h1>One界面</h1>
+        </div>
+    </template>
+    <template id="two">
+        <div class="two-class">
+            <h1>Two界面</h1>
+        </div>
+    </template>
+    <template id="index">
+        <div class="index-class">
+            <h1>Index界面</h1>
+        </div>
+    </template>
+    <template id="error">
+        <div class="error-class">
+            <h1>error界面</h1>
+        </div>
+    </template>
+
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script>
+        const one = { template: '#one' }
+        const two = { template: '#two' }
+        const index = { template: '#index' }
+        const error = { template: '#error' }
+        let router = new VueRouter({
+            // mode: 'history',
+            linkActiveClass: 'active',
+            // linkExactActiveClass: 'active',
+            routes: [
+                { path: '/one', component: one },
+                { path: '/one/test', component: one },
+                { path: '/two', component: two },
+                { path: '/index', component: index },
+                { path: '/404', component: error },
+                { path: '/', redirect: '/index' },
+                { path: '*', redirect: '/404' }
+            ]
+        })
+        router.beforeEach((to, from, next) => {
+            console.log('beforeEach-1')
+            next()
+            // next('/')
+            console.log('beforeEach-2')
+        })
+
+        new Vue({
+            el: '#app',
+            router,
+            watch: {
+                '$route.path': function (newVal, oldVal) {
+                    console.log('$route.path', newVal, oldVal)
+                }
+            },
+            data: {},
+            methods: {
+                getRouter() {
+                    console.log(this.$router)
+                    console.log(this.$route)
+                }
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+            updated() {
+                console.log('updated')
+            }
+        })
+    </script>
+</body>
+
+</html>

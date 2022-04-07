@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <button @click="increment">点击</button>
+        <button @click="increment2">点击2</button>
+        <div>{{this.$store.getters.format}}</div>
+        <div>{{this.$store.getters.format}}</div>
+        <div>{{this.$store.getters.format}}</div>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vuex.js"></script>
+    <script>
+        Vue.use(Vuex)
+
+        const store = new Vuex.Store({
+            state: {
+                count: 0,
+                str: '学习使我快乐'
+            },
+            mutations: {
+                increment(state, data) {
+                    state.str = data
+                }
+            },
+            actions: {
+                increment(context, data) {
+                    context.commit('increment', data)
+                    return context.state.str
+                }
+            },
+            getters: {
+                format(state) {
+                    console.log("format方法执行了")
+                    return state.str + '，学到老活到老'
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            store,
+            data: {},
+            methods: {
+                increment() {
+                    let a = this.$store.commit('increment', 'gerald')
+                    console.log(a)
+                },
+                increment2() {
+                    this.$store.dispatch('increment', 'gerald2').then(res => {
+                        console.log(res)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

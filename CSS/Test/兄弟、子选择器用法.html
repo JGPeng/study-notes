@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        /* 后代选择器：可以选择某元素后代的元素（子子孙孙元素） */
+        .later p {
+            color: pink;
+        }
+
+        /* 子选择器：只能选择作为某元素儿子元素的元素，不包括孙元素、曾孙元素等等等 */
+        .son>p {
+            color: greenyellow;
+        }
+
+        /* 相邻兄弟选择器：可选择紧接在另一个元素后的元素，且二者具有相同的父亲元素 */
+        h1+p {
+            color: red;
+        }
+
+        /* 兄弟选择器：作用是查找某一个指定元素的后面的所有兄弟结点 */
+        h2~p {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="later">
+        <p>Hello word!</p>
+        <div>
+            <p>Hello word!</p>
+        </div>
+        <p>Hello word!</p>
+    </div>
+    <hr>
+    <div class="son">
+        <p>Hello word!</p>
+        <div>
+            <p>Hello word!</p>
+        </div>
+        <p>Hello word!</p>
+    </div>
+    <hr>
+    <h1>Hello word!</h1>
+    <p>Hello word!</p>
+    <h1>Hello word!</h1>
+    <span>Hello word!</span>
+    <p>Hello word!</p>
+    <h2>Hello word!</h2>
+    <p>Hello word!</p>
+    <p>Hello word!</p>
+    <p>Hello word!</p>
+</body>
+
+</html>

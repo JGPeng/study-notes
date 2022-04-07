@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            border: 5px groove rgb(253, 131, 151);
+            margin: 20px;
+        }
+        .flex-box {
+            width: 100px;
+            height: 50px;
+            background-color: pink;
+        }
+
+        .lineheight {
+            width: 200px;
+            height: 200px;
+            border: 5px groove rgb(253, 131, 151);
+            margin: 10px;
+        }
+        .lineheight-box {
+            margin-top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 50px;
+            background-color: pink;
+        }
+        
+        .relativeabsolute {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 5px groove rgb(253, 131, 151);
+            margin: 10px;
+        }
+        .relativeabsolute-box {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 50px;
+            background-color: pink;
+        }
+
+        .margin {
+            width: 200px;
+            height: 200px;
+            border: 5px groove rgb(253, 131, 151);
+            margin: 10px;
+        }
+        .margin-box {
+            margin-top: calc(50% - 25px);
+            width: 100px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="flex">
+            <div class="flex-box">flex弹性布局：交叉轴方向居中对齐</div>
+        </div>
+        <div class="lineheight">
+            <div class="lineheight-box">外边距+2D转换：距父元素顶部50%，再移动自身高度的50%</div>
+        </div>
+        <div class="relativeabsolute">
+            <div class="relativeabsolute-box">父相子绝+2D转换：距父元素顶部50%，再移动自身高度的50%</div>
+        </div>
+        <div class="margin">
+            <div class="margin-box">外边距固定值</div>
+        </div>
+    </div>
+</body>
+</html>

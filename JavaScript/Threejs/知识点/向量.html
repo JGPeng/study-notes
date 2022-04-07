@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../three.js"></script>
+    <script>
+        // 对象执行克隆方法 .clone()，返回一个新的对象，和原来对象属性的值一样
+        var p1 = new THREE.Vector3(10,20,14);
+        var v1 = p1.clone();
+        console.log('查看克隆的结果', v1);
+
+        // 执行 .copy() 方法，向量p1三个分量xyz的值覆盖向量p2三个分量
+        var p2 = new THREE.Vector3();
+        p2.copy(p1);
+        console.log('查看复制的结果', p2);
+
+        // 计算两点之间的距离
+        var p3 = new THREE.Vector3(20,30,-4);
+        var L  = p1.clone().sub(p3).length();
+        console.log('两点之间的距离', L);
+
+        // 计算三角形面积 .dot()点乘 .cross()叉乘
+        p2.set(0, 0, 0)
+        var v1 = p1.clone().sub(p2);
+        var v2 = p1.clone().sub(p3);
+        console.log(v1, v2);
+        var CosineValue = v1.dot(v2) / (v1.length() * v2.length());
+        console.log('三角形两条边的夹角', Math.acos(CosineValue) * 180 / Math.PI + '°');
+        console.log('三角形两条边夹角的余弦值', CosineValue);
+    </script>
+</body>
+</html>

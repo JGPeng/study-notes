@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>过渡动画</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .div1{
+        width: 100px;
+        height:100px;
+        background-color: red;
+      }
+      .div2{
+        width: 100px;
+        height:100px;
+        background-color: greenyellow;
+      }
+      .div3{
+        width: 100px;
+        height:100px;
+        background-color: yellow;
+      }
+      .div4{
+        width: 100px;
+        height:100px;
+        background-color: green;
+      }
+      .v-enter{
+        opacity: 0;
+      }
+      .v-enter-active{
+        transition: all 3s;
+      }
+      .v-enter-to{
+        opacity: 1;
+      }
+      .v-leave{
+        opacity: 1;
+      }
+      .v-leave-active{
+        transition: all 3s;
+      }
+      .v-leave-to{
+        opacity: 0;
+      }
+      
+      .one-enter{
+        opacity: 0;
+      }
+      .one-enter-active{
+        transition: all 3s;
+      }
+      .one-enter-to{
+        opacity: 1;
+        margin-left: 100px;
+      }
+      .one-leave{
+        opacity: 1;
+      }
+      .one-leave-active{
+        transition: all 3s;
+      }
+      .one-leave-to{
+        opacity: 0;
+        margin-left: 100px;
+      }
+      
+      .two-enter{
+        opacity: 0;
+      }
+      .two-enter-active{
+        transition: all 3s;
+      }
+      .two-enter-to{
+        opacity: 1;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <button @click="handleShow">点击</button>
+      <!-- transition中只能有一个元素 -->
+      <transition>
+        <div class="div1" v-show="isShow"></div>
+      </transition>
+
+      <!-- 如果需要在页面加载时就出现过渡动画，需要加上appear -->
+      <transition appear>
+        <div class="div2" v-show="isShow"></div>
+      </transition>
+
+      <!-- 如果需要控制多个元素进行不同的过渡动画，需要设置name -->
+      <transition appear name="one">
+        <div class="div3" v-show="isShow"></div>
+      </transition>
+      <transition appear name="two">
+        <div class="div4" v-show="isShow"></div>
+      </transition>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          isShow: true
+        },
+        methods: {
+          handleShow() {
+            this.isShow = !this.isShow
+          },
+        }
+      })
+    </script>
+  </body>
+</html>

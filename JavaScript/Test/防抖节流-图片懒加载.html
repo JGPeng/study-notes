@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>防抖节流优化图片缓加载</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .pic {
+      display: block;
+      height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb593cbdf3.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb5940c114.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb59411426.jpg" />
+
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb593cbdf3.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb5940c114.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb59411426.jpg" />
+
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb593cbdf3.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb5940c114.jpg" />
+    <img class="pic" src="" data-src="https://www.hualigs.cn/image/607fb59411426.jpg" />
+  </div>
+
+  <script>
+    // 获取所有图片的数组
+    const imgs = document.querySelectorAll('.container .pic');
+    // 获取父元素
+    const container = document.querySelector('.container');
+    // 获取可视区域高度
+    const _clientHeight = window.innerHeight;
+
+    // 重新获得可视区高度
+    function computedClientHeight() {
+      _clientHeight = document.body.clientHeight || document.documentElement.clientHeight;
+    }
+
+    // 获取滚动高度
+    function getScrollTop() {
+      let scrollTop = 0;
+      if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop;
+      }
+      else if (document.body) {
+        scrollTop = document.body.scrollTop;
+      }
+      return scrollTop;
+    }
+
+    let isLoadImg = false;  // 是否当前容器内的图片加载完成
+    let n = 0;  // 存储图片加载到的位置， 避免每次都从第一张图片开始遍历
+    function lazyload() {
+      for (let i = 0; i < imgs.length; i++) {
+        if (imgs[i].offsetTop < _clientHeight + getScrollTop()) {
+          if (imgs[i].getAttribute('src') == "") {
+            imgs[i].src = imgs[i].getAttribute('data-src');
+            n++;
+          }
+        }
+      }
+      isLoadImg = n >= imgs.length;
+    }
+    let load = throttle(lazyload, 500, isLoadImg);
+    load();
+    // window.addEventListener("scroll", load, true);
+    window.addEventListener("scroll", load, true);
+    window.addEventListener("resize", debounce(computedClientHeight, 800), true);
+
+    // 防抖函数
+    function debounce(callback, delay) {
+      let timer;
+      return function (arg) {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          callback();
+        }, delay);
+      }
+    }
+
+    // 节流函数
+    function throttle(func, wait, flag) {
+      let timerOut;
+      return function () {
+        if (flag) return;
+        if (!timerOut) {
+          timerOut = setTimeout(function () {
+            func();
+            timerOut = null;
+          }, wait);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

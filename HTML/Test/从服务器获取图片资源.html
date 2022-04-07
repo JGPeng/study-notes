@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>从服务器获取图片资源</title>
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <button id="getData">获取图片</button>
+        <br>
+        <br>
+        <img id="imageData" src="" alt="图片资源" />
+    </div>
+    <script>
+        const btn = document.querySelector('#getData')
+        const imageData = document.querySelector('#imageData')
+        const avatar = document.querySelector('#avatar')
+        btn.addEventListener('click', (e) => {
+            let xhr = new XMLHttpRequest()
+            // method, url, async
+            xhr.open('GET', 'http://127.0.0.1:3333/', true)
+            xhr.setRequestHeader('Content-Type', 'text/plain')
+            xhr.setRequestHeader('origin', 'http://127.0.0.1:5500')
+            xhr.send()
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let urlStr = xhr.responseText  // 此处接受的图片格式是base64字符串
+                    imageData.src = 'data:image/*;base64,' + urlStr;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态搜索特效-HTML、CSS3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 300px;
+            height: 100px;
+            margin: auto;
+            background-color: #fff;
+        }
+
+        .container input {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            padding: 0 80px 0 20px;
+            border: none;
+            border-radius: 50%;
+            outline: none;
+            color: #fff;
+            font-weight: bolder;
+            font-family: 'Inconsolate', monospace;
+            letter-spacing: 0.1em;
+            z-index: 5;
+            box-shadow: 0 0 25px #DC143C, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
+            /* text-shadow: 0 0 60px #DC143C; */
+            background-color: #DC143C;
+            opacity: 0;
+            transition: all 1.5s;
+        }
+        .container input::placeholder{
+            color: #fff;
+            opacity: 0.5;
+            font-weight: bolder;
+        }
+        .container input:hover{
+            cursor: pointer;
+        }
+        .container input:focus{
+            opacity: 1;
+            width: 300px;
+        }
+        .container input:focus ~ .search{
+            right: -230px;
+            width: 70px;
+            height: 70px;
+            background-color: #151515;
+            z-index: 6;
+        }
+        .container input:focus ~ .search::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            height: 2px;
+            margin: auto;
+            background-color: #fff;
+            transform: rotate(45deg);
+        }
+        .container input:focus ~ .search::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            height: 20px;
+            margin: auto;
+            background-color: #fff;
+            transform: rotate(45deg);
+            border: none;
+            border-radius: 0;
+        }
+
+        .container .search {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            border: none;
+            background-color: #DC143C;
+            border-radius: 50%;
+            box-shadow: 0 0 25px 0 #333;
+            transition: all 1s;
+        }
+
+        .container .search:hover {
+            cursor: pointer;
+        }
+
+        .container .search::before {
+            content: "";
+            position: absolute;
+            left: 55%;
+            top: 60%;
+            width: 12px;
+            height: 2px;
+            border: none;
+            background-color: #fff;
+            transform: rotate(45deg);
+        }
+
+        .container .search::after {
+            content: "";
+            position: absolute;
+            left: 25%;
+            top: 25%;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" placeholder="Search...">
+        <button class="search"></button>
+    </div>
+</body>
+
+</html>

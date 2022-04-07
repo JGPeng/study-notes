@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爷孙组件通信-bus</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>我是爷组件</h1>
+        <h4>name: {{name}}</h4>
+        <h4>age: {{age}}</h4>
+        <h4>hobby: {{hobby.join(', ')}}</h4>
+        <fu :name="name" :age="age" :hobby="hobby"></fu>
+    </div>
+    <template id="fu">
+        <div>
+            <h1>我是父组件</h1>
+            <h4>name: {{$attrs.name}}</h4>
+            <h4>age: {{$attrs.age}}</h4>
+            <h4>hobby: {{$attrs.hobby.join(', ')}}</h4>
+            <sun v-bind="$attrs"></sun>
+        </div>
+    </template>
+    <template id="sun">
+        <div>
+            <h1>我是孙组件</h1>
+            <h4>name: {{name}}</h4>
+            <h4>age: {{age}}</h4>
+            <h4>hobby: {{hobby.join(', ')}}</h4>
+            <button @click="changeName">修改name</button>
+            <button @click="changeAge">修改age</button>
+            <button @click="changeHobby">修改hobby</button>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.prototype.$bus = new Vue()
+        const sun = {
+            inheritAttrs: false,
+            el: '#sun',
+            props: {
+                name: {
+                    type: String,
+                    default: ''
+                },
+                age: {
+                    type: Number,
+                    default: 18
+                },
+                hobby: {
+                    type: Array,
+                    default: []
+                }
+            },
+            methods: {
+                changeName() {
+                    this.$bus.$emit('changeName')
+                },
+                changeAge() {
+                    this.$bus.$emit('changeAge')
+                },
+                changeHobby() {
+                    this.$bus.$emit('changeHobby')
+                }
+            }
+        }
+        const fu = {
+            el: '#fu',
+            components: { sun }
+        }
+        new Vue({
+            el: '#app',
+            components: { fu },
+            data: {
+                name: 'gerald',
+                age: 18,
+                hobby: ['游泳', '跑步', '乒乓球']
+            },
+            created() {
+                this.$bus.$on('changeName', () => {
+                    this.name += '!'
+                })
+                this.$bus.$on('changeAge', () => {
+                    this.age++
+                })
+                this.$bus.$on('changeHobby', () => {
+                    this.hobby.push(Math.floor(Math.random() * 100))
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

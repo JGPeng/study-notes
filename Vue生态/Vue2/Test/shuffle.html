@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <span v-for="item of items" :key="item">{{item}}</span>
+        <br>
+        <button @click="shuffleHandle">洗牌</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                items: [1, 2, 3, 4, 5, 6],
+                str:'aaa'
+            },
+            methods: {
+                shuffleHandle() {
+                    this.items = this.shuffle(this.items)
+                },
+                shuffle(items) {
+                    //由于引用类型数据进行传参时是地址传递，因此需要创建新的内存空间存放数组元素（数组元素发生变化不会触发视图更新）
+                    items = [].concat(items)
+                    let len = items.length
+                    let index = 0, last = len - 1
+                    while (index < len) {
+                        let i = this.random(index, len)
+                        let value = items[i]
+                        items[i] = items[index]
+                        items[index] = value
+                        index++
+                    }
+                    return items
+                },
+                random(index, last) {
+                    return Math.floor(Math.random() * (last - index)) + index
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

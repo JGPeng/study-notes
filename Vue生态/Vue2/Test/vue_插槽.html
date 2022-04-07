@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>插槽</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <parent></parent>
+    </div>
+
+    <template id="parent">
+      <div>
+        <p>我是父组件</p>
+        <br>
+
+        <son></son>
+        <br>
+
+        <son>
+          <p>在匿名插槽中填入标签可以顶替默认的插槽内容</p>
+        </son>
+        <br>
+
+        <son2>
+          <template v-slot:container>
+            <p>使用具名插槽-方式1</p>
+            <p>哈哈哈</p>
+          </template>
+        </son2>
+        <br>
+
+        <son2>
+          <template #container>
+            <p>使用具名插槽-方式2</p>
+            <p>啦啦啦</p>
+          </template>
+        </son2>
+        <br>
+
+        <!-- 作用域插槽：slot-scope  -->
+        <son3></son3>
+        <hr/>
+        <son3>
+          <template slot-scope="obj">
+            <p>使用作用域插槽-方式1</p>
+            {{obj.names}}
+          </template>
+        </son3>
+        <hr/>
+        <son3>
+          <template v-slot="obj">
+            <p>使用作用域插槽-方式2(注意默认插槽的缩写语法不能和具名插槽混用，因为它会导致作用域不明确)</p>
+            {{obj.names}}
+          </template>
+        </son3>
+        <br>
+        <son4 #scope="obj">
+          <p>使用作用域插槽-方式3</p>
+          {{obj.names}}
+        </son4>
+
+      </div>
+    </template>
+
+    <template id="son">
+      <div>
+        <p>我是子组件1</p>
+        <slot>默认插槽</slot>
+      </div>
+    </template>
+    <template id="son2">
+      <div>
+        <p>我是子组件2</p>
+        <slot name="container">具名插槽</slot>
+      </div>
+    </template>
+    <template id="son3">
+      <div>
+        <p>我是子组件3</p>
+        <slot v-bind:names="name">默认内容.</slot>
+      </div>
+    </template>
+    <template id="son4">
+      <div>
+        <p>我是子组件4</p>
+        <slot>默认内容.</slot>
+        <slot name="scope" v-bind:names="name">具名插槽+作用域插槽</slot>
+      </div>
+    </template>
+
+    <script>
+      Vue.component('parent', {
+        template: '#parent',
+        components: {
+          'son': {
+            template: '#son'
+          },
+          'son2': {
+            template: '#son2'
+          },
+          'son3': {
+            template: '#son3',
+            data: function() {
+              return {
+                name: 'gerald'
+              }
+            }
+          },
+          'son4': {
+            template: '#son4',
+            data: function() {
+              return {
+                name: 'PJG'
+              }
+            }
+          }
+        }
+      })
+      let vue = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+      })
+    </script>
+  </body>
+</html>

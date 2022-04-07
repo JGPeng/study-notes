@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .test {
+            width: 300px;
+            height: 300px;
+            background: pink;
+        }
+
+        .one-enter-active,
+        .one-leave-active {
+            transition: all 2s;
+        }
+
+        .one-enter,
+        .one-leave-to {
+            opacity: 0;
+        }
+
+        .one-enter-to,
+        .one-leave {
+            opacity: 1;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="toggle">按钮</button>
+        <!-- 在transition标签中只能有一个元素，或者说只有第一个元素才有过渡动画 -->
+        <!-- name 属性：如果没有设置该属性，则类名的默认前缀为“v-”，否则替换默认前缀，此处类名前缀为“one-” -->
+        <!-- appear 属性：设置初始渲染的过渡 -->
+        <!-- v-on:before-enter、v-on:enter 等：声明 JavaScript 钩子 -->
+        <!-- v-bind:css="false"：Vue 会跳过 CSS 的检测 -->
+        <!-- enter-class、enter-active-class 等：自定义类名 -->
+        <transition name="one" appear>
+            <div class="test" v-if="isShow"></div>
+        </transition>
+        <transition name="one" appear v-bind:css="false" v-on:before-enter="beforeEnter" @enter="enter"
+            v-on:after-enter="afterEnter">
+            <div class="test" v-if="isShow"></div>
+        </transition>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {
+                toggle() {
+                    this.isShow = !this.isShow
+                },
+                beforeEnter(el) {
+                    console.log('beforeEnter')
+                    el.style.opacity = 0
+                },
+                /** 注意点
+                 * 1. 动画执行完毕后一定要调用 done 回调函数
+                 * 2. 否则不会执行后续的 afterEnter 钩子函数
+                */
+                enter(el, done) {
+                    console.log('enter')
+                    /** 注意点
+                     * 如果是通过 JS 钩子来实现过渡动画
+                     * 那么必须在动画执行过程中的钩子函数中写上：
+                     * el.offsetWidth 或 el.offsetHeight
+                    */
+                    el.offsetHeight
+                    el.style.transition = 'all 2.5s'
+                    /** 注意点
+                     * 如果想让元素一进来就有动画，最好延迟一下再调用 done 方法
+                    */
+                    setTimeout(() => {
+                        done()
+                    })
+                },
+                afterEnter(el) {
+                    console.log('afterEnter')
+                    el.style.opacity = 1
+                    el.style.marginLeft = '200px'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

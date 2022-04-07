@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button v-for="item of btns" :key="item.name" @click="changeHandle(item.name)">{{item.name}}</button>
+        </div>
+        <keep-alive>
+            <component :is="componentName"></component>
+        </keep-alive>
+        <a href="https://cn.vuejs.org/v2/guide/components.html#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6"
+            target="_blank">动态组件</a>
+    </div>
+
+    <template id="a">
+        <div>
+            <h1>A组件</h1>
+        </div>
+    </template>
+    <template id="b">
+        <div>
+            <h1>B组件</h1>
+        </div>
+    </template>
+    <template id="c">
+        <div>
+            <h1>C组件</h1>
+        </div>
+    </template>
+
+    <script src="./vue.js"></script>
+    <script>
+        const A = {
+            template: '#a',
+            created() {
+                console.log('created')
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            beforeMount() {
+                console.log('beforeMount')
+            },
+            mounted() {
+                console.log('mounted')
+            },
+            beforUpdate() {
+                console.log('beforUpdate')
+            },
+            updated() {
+                console.log('updated')
+            },
+            // 在 2.2.0 及其更高版本中，activated 和 deactivated 将会在 <keep-alive> 树内的所有嵌套组件中触发。
+            activated() {
+                console.log('激活了')
+            },
+            deactivated() {
+                console.log('失效了')
+            }
+        }
+        const B = { template: '#b' }
+        const C = { template: '#c' }
+        new Vue({
+            el: '#app',
+            components: { A, B, C },
+            data: {
+                btns: [
+                    { name: 'A', isShow: true },
+                    { name: 'B', isShow: false },
+                    { name: 'C', isShow: false }
+                ],
+                componentName: 'A'
+            },
+            methods: {
+                changeHandle(name) {
+                    this.componentName = name
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

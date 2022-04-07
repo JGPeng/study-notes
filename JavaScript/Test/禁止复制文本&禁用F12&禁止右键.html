@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 禁止复制文本 */
+        * {
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" value="abc">
+    <p>123123</p>
+    <div>abcabc</div>
+    <u>uuuuuuuuu</u>
+    <br>
+    <i>iiiiiiiiiii</i>
+    <br>
+    <em>ememememem</em>
+    <br>
+    <span>spanspanspan<sub>sub</sub><sup>sup</sup></span>
+
+    <script>
+        // 禁用F12按键，不能打开，可以关闭（仅仅不能通过f12打开控制台）
+        window.onkeydown = window.onkeyup = window.onkeypress = function (event) {
+            // 判断是否按下F12，F12键码为123
+            if (event.keyCode == 123) {
+                event.preventDefault(); // 阻止默认事件行为
+                window.event.returnValue = false;
+            }
+        }
+
+        // 阻止右键菜单的默认事件
+        document.oncontextmenu = function(e) {
+            // e.preventDefault()
+            return false
+        }
+    </script>
+</body>
+
+</html>

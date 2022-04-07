@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue中父子组件的生命周期钩子的执行顺序</title>
+</head>
+
+<body>
+    <div id="app">
+        <child1></child1>
+        <h1>我的父组件 - {{name}}</h1>
+        <div>
+            <input type="text" v-model="name">
+        </div>
+        <child2></child2>
+    </div>
+
+    <template id="child1">
+        <div>
+            <h1>{{name}}</h1>
+        </div>
+    </template>
+
+    <template id="child2">
+        <div>
+            <h1>{{name}}</h1>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        const child1 = {
+            template: '#child1',
+            data() {
+                return {
+                    name: '我的子组件1号'
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate1', this.name)
+            },
+            created() {
+                console.log('created1', this.name)
+            },
+            beforeMount() {
+                console.log('beforeMount1', this.name)
+            },
+            mounted() {
+                console.log('mounted1', this.name)
+            }
+        }
+        const child2 = {
+            template: '#child2',
+            data() {
+                return {
+                    name: '我的子组件2号'
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate2', this.name)
+            },
+            created() {
+                console.log('created2', this.name)
+            },
+            beforeMount() {
+                console.log('beforeMount2', this.name)
+            },
+            mounted() {
+                console.log('mounted2', this.name)
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                name: '父组件'
+            },
+            components: {
+                child1,
+                child2
+            },
+            watch: {
+                name: {
+                    handler() {
+                        console.log('watchwatchwatchwatchwatch')
+                    }
+                }
+            },
+            beforeCreate() {
+                // debugger
+                console.log('beforeCreate', this.name)
+            },
+            created() {
+                console.log('created', this.name, this.$el)
+            },
+            beforeMount() {
+                console.log('beforeMount', this.name, this.$el)
+            },
+            mounted() {
+                console.log('mounted', this.name, this.$el)
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate', this.name)
+            },
+            updated() {
+                console.log('updated', this.name)
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy', this.name)
+            },
+            destroyed() {
+                console.log('destroyed', this.name)
+            }
+        })
+        console.log('原生JS代码')
+    </script>
+</body>
+
+</html>

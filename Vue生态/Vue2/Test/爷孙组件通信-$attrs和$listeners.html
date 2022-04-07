@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爷孙组件通信-$attrs和$listeners</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>我是爷组件</h1>
+        <h4>name: {{name}}</h4>
+        <h4>age: {{age}}</h4>
+        <h4>hobby: {{hobby.join(', ')}}</h4>
+        <button @click="changeName">修改name</button>
+        <button @click="changeAge">修改age</button>
+        <button @click="changeHobby">修改hobby</button>
+        <fu :name="name" :age="age" :hobby="hobby" @change-name="changeName" @changeage="changeAge"
+            @hobby="changeHobby"></fu>
+    </div>
+    <template id="fu">
+        <div>
+            <h1>我是父组件</h1>
+            <h4>name: {{$attrs.name}}</h4>
+            <h4>age: {{$attrs.age}}</h4>
+            <h4>hobby: {{$attrs.hobby.join(', ')}}</h4>
+            <sun v-bind="$attrs" v-on="$listeners"></sun>
+        </div>
+    </template>
+    <template id="sun">
+        <div>
+            <h1>我是孙组件</h1>
+            <h4>name: {{name}}</h4>
+            <h4>age: {{age}}</h4>
+            <h4>hobby: {{hobby.join(', ')}}</h4>
+            <button @click="changeName">修改name</button>
+            <button @click="changeAge">修改age</button>
+            <button @click="changeHobby">修改hobby</button>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        /**
+         * $attrs: 爷组件通过v-bind传递数据给父组件时，如果父组件没有使用props接收，则会将传递过来的数据存放到$attrs中，
+         * 这时将父组件的$attrs传递给孙组件，就可以达到爷孙组件数据传递的目的。（父组件充当桥梁的作用）
+         * 
+         * $listeners: 孙组件emit的方法通知到爷组件时，父组件充当桥梁作用。
+         */
+        const sun = {
+            inheritAttrs: false,
+            el: '#sun',
+            props: {
+                name: {
+                    type: String,
+                    default: ''
+                },
+                age: {
+                    type: Number,
+                    default: 18
+                },
+                hobby: {
+                    type: Array,
+                    default: []
+                }
+            },
+            methods: {
+                // emit 绑定的事件名不能有大写
+                changeName() {
+                    this.$emit('change-name')
+                },
+                changeAge() {
+                    this.$emit('changeage')
+                },
+                changeHobby() {
+                    this.$emit('hobby')
+                }
+            }
+        }
+        const fu = {
+            el: '#fu',
+            components: { sun }
+        }
+        new Vue({
+            el: '#app',
+            components: { fu },
+            data: {
+                name: 'gerald',
+                age: 18,
+                hobby: ['游泳', '跑步', '乒乓球']
+            },
+            methods: {
+                changeName() {
+                    console.log('ye-changeName')
+                    this.name += '!'
+                },
+                changeAge() {
+                    this.age++
+                },
+                changeHobby() {
+                    this.hobby.push(Math.floor(Math.random() * 100))
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

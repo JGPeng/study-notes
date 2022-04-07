@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas 默认是行内元素 -->
+    <canvas width="1000" height="500">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+    <script>
+        var canvas = document.querySelector('canvas')
+        var ctx = canvas.getContext('2d')
+
+        // 小球类
+        function Ball(name) {
+            this.name = name
+            this.r = randomNumber(15, 35)  // [15,35)
+            this.x = randomNumber(this.r + 1, 500 - this.r)  // [r+1,500-r]
+            this.y = randomNumber(this.r + 1, 500 - this.r)  // [r+1,500-r]
+            this.xSpeed = randomNumber(2, 10)  // [2,10)
+            this.ySpeed = randomNumber(2, 10)  // [2,10)
+            this.color = randomColor()
+        }
+        // 渲染小球
+        Ball.prototype.show = function () {
+            this.run()
+            drawCircle(this.x, this.y, this.r, this.color)
+            drawText(this.name, this.x + this.r, this.y - this.r / 2, this.color)
+        }
+        // 碰撞检测
+        Ball.prototype.run = function () {
+            if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
+                this.xSpeed = -this.xSpeed
+            }
+            this.x += this.xSpeed
+            if (this.y + this.r >= canvas.height || this.y - this.r <= 0) {
+                this.ySpeed = -this.ySpeed
+            }
+            this.y += this.ySpeed
+        }
+
+        // 小球集合
+        let balls = []
+        // 小球名称集合
+        let names = ['JavaScript', 'CSS', 'HTML', 'Vue', 'Node.js', 'Reace']
+        for (let i = 0; i < 7; i++) {
+            let ball = new Ball(names[i % names.length])
+            balls.push(ball)
+            ball.show()
+        }
+        // 小球移动
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].show()
+                for (let j = 0; j < i; j++) {
+                    drawLine(balls[i].x, balls[i].y, balls[j].x, balls[j].y)
+                }
+            }
+        }, 50)
+
+        // 返回随机的 16 进制颜色
+        function randomColor() {
+            return '#' + parseInt(Math.random() * 0xffffff).toString(16)
+        }
+
+        // 返回 [x, y) 之间的整数
+        function randomNumber(x, y) {
+            return parseInt(Math.random() * (y - x)) + x
+        }
+
+        // 画直线
+        function drawLine(x1, y1, x2, y2, color) {
+            ctx.beginPath()
+            ctx.moveTo(x1, y1)
+            ctx.lineTo(x2, y2)
+            ctx.strokeStyle = color || '#000'
+            ctx.stroke()
+        }
+
+        // 画实心圆
+        function drawCircle(x, y, r, color) {
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = color || 'red'
+            ctx.fill()
+        }
+
+        // 画文字
+        function drawText(str, x, y, color) {
+            ctx.beginPath()
+            ctx.font = '14px 微软雅黑'
+            ctx.fillStyle = color || 'red'
+            ctx.textAlign = 'left'
+            ctx.textBaseline = 'bottom'
+            ctx.fillText(str, x, y)
+        }
+    </script>
+</body>
+
+</html>

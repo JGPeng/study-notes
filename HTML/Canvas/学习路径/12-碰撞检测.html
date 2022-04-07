@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500px" height="500px">您的浏览器版本较低，请升级浏览器或者使用Chrome打开！</canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        let r = 30
+        setInterval(crash(), 10)
+
+        function crash() {
+            let x = 50, y = 50, xSpeed = randomNumber(10), ySpeed = randomNumber(10)
+            let color = randomColor()
+            return function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                drawCircle(x, y, r, color)
+                if (x + r >= canvas.width || x - r <= 0) {
+                    xSpeed = -xSpeed
+                }
+                x += xSpeed
+                if (y + r >= canvas.height || y - r <= 0) {
+                    ySpeed = -ySpeed
+                }
+                y += ySpeed
+            }
+        }
+
+        // 绘制小球
+        function drawCircle(x, y, r, color) {
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = color || 'red'
+            ctx.fill()
+        }
+
+        // 返回随机的 16 进制颜色
+        function randomColor() {
+            return '#' + parseInt(Math.random() * 0xffffff).toString(16)
+        }
+
+        // 返回 [1, num] 之间的整数
+        function randomNumber(num) {
+            return parseInt(Math.random() * num) + 1
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .threeDBox {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto 200px;
+            background-color: grey;
+            box-sizing: border-box;
+        }
+
+        .operationBox {
+            width: 100%;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .operationBox span {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- perspective 越小，translateZ 变化时图形变化越大 -->
+        <div class="threeDBox"
+            :style="{transform:`perspective(100px) translateZ(${tz}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`}">
+        </div>
+        <div class="operationBox">
+            <span>translateZ: {{tz}} px</span>
+            <button @click="subTranslateZ">-</button>
+            <button @click="addTranslateZ">+</button>
+        </div>
+        <div class="operationBox">
+            <span>rotateX: {{rx}} deg</span>
+            <button @click="subRotateX">-</button>
+            <button @click="addRotateX">+</button>
+        </div>
+        <div class="operationBox">
+            <span>rotateY: {{ry}} deg</span>
+            <button @click="subRotateY">-</button>
+            <button @click="addRotateY">+</button>
+        </div>
+        <div class="operationBox">
+            <span>rotateZ: {{rz}} deg</span>
+            <button @click="subRotateZ">-</button>
+            <button @click="addRotateZ">+</button>
+        </div>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                tz: 0,
+                rx: 0,
+                ry: 0,
+                rz: 0,
+                color: 'red'
+            },
+            methods: {
+                subTranslateZ(){
+                    this.tz -= 5
+                },
+                addTranslateZ(){
+                    this.tz += 5
+                },
+                subRotateX() {
+                    this.rx -= 5
+                },
+                addRotateX() {
+                    this.rx += 5
+                },
+                subRotateY() {
+                    this.ry -= 5
+                },
+                addRotateY() {
+                    this.ry += 5
+                },
+                subRotateZ() {
+                    this.rz -= 5
+                },
+                addRotateZ() {
+                    this.rz += 5
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

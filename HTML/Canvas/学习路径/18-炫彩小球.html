@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas 默认是行内元素 -->
+    <canvas>您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+    <script>
+
+        var canvas = document.querySelector('canvas')
+        const x = document.documentElement.clientWidth
+        const y = document.documentElement.clientHeight
+        canvas.width = x
+        canvas.height = y
+        var ctx = canvas.getContext('2d')
+
+
+        // 防抖处理 canvas 宽高
+        let resize = debounce(function () {
+            const x = document.documentElement.clientWidth
+            const y = document.documentElement.clientHeight
+            canvas.width = x
+            canvas.height = y
+        }, 200)
+        window.onresize = function () {
+            resize()
+        }
+        function debounce(fn, wait) {
+            let timer = null
+            return function () {
+                let context = this
+                let args = arguments
+                if (timer) clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn.apply(context, args)
+                }, wait)
+            }
+        }
+
+        // 小球类
+        function Ball(x, y) {
+            this.r = 50
+            this.x = x
+            this.y = y
+            this.color = randomColor()
+        }
+        // 渲染小球
+        Ball.prototype.show = function () {
+            drawCircle(this.x, this.y, this.r, this.color)
+            this.r--
+        }
+
+        // 小球集合
+        let balls = []
+
+        // 节流处理新增小球
+        let mousemove = throttle((e) => {
+            let ball = new Ball(e.x, e.y)
+            balls.push(ball)
+            ball.show()
+        }, 10)
+        window.onmousemove = function (e) {
+            mousemove(e)
+        }
+        function throttle(fn, delay) {
+            let timer = null
+            return function () {
+                if (!timer) {
+                    let context = this
+                    let args = arguments
+                    timer = setTimeout(() => {
+                        timer = null
+                        fn.apply(context, args)
+                    }, delay)
+                }
+            }
+        }
+
+        // 小球变化
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].show()
+                if (balls[i].r <= 0) {
+                    balls.splice(i, 1)
+                    i--
+                }
+            }
+        }, 100)
+
+        // 返回随机的 16 进制颜色
+        function randomColor() {
+            return '#' + parseInt(Math.random() * 0xffffff).toString(16)
+        }
+
+        // 画实心圆
+        function drawCircle(x, y, r, color) {
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = color || 'red'
+            ctx.fill()
+        }
+    </script>
+</body>
+
+</html>

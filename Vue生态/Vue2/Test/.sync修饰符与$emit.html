@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.sync修饰符与$emit</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>父组件</h1>
+        <h3>.sync修饰符之前的写法</h3>
+        <child :msg="msg" @update:msg="changeMsg"></child>
+        <h3>使用.sync修饰符的写法</h3>
+        <child :msg.sync="msg2"></child>
+    </div>
+
+    <template id="child">
+        <div>
+            <p>子组件</p>
+            <div>{{msg}}</div>
+            <button @click="change">change</button>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        /**
+         * 父子组件传递属性时，
+         * 父组件应该使用 - 来绑定属性，
+         * 子组件应该使用 驼峰法 来接受属性，
+         * 如：
+         *   父组件: <cpn :my-msg="msg"></cpn>
+         *   子组件: props: ['myMsg']
+         */
+        
+        Vue.component('child', {
+            template: '#child',
+            props: {
+                msg: {
+                    type: String,
+                    require: true
+                }
+            },
+            methods: {
+                change() {
+                    this.$emit('update:msg', this.msg + '！')
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                msg: '你好哇',
+                msg2: '棒棒哒'
+            },
+            methods: {
+                changeMsg() {
+                    this.msg += '！'
+                },
+                changeMsg2() {
+                    this.msg2 += '！'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

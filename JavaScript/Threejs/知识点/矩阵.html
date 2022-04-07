@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../three.js"></script>
+    <script>
+        // 创建一个 4*4 的矩阵对象，默认返回一个单位矩阵
+        var m4 = new THREE.Matrix4()
+        console.log('查看矩阵对象默认值', m4);
+        console.log('查看矩阵对象默认值', m4.elements);
+
+        // 手动设置矩阵对象的值: 通过elements直接赋值为按行存储，set为按列存储
+        m4.elements = [
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4
+        ]
+        console.log('设置矩阵对象-elements', m4.elements);
+        m4.set(
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, 2, 3, 4
+        )
+        console.log('设置矩阵对象-set', m4.elements);
+
+        // 转置矩阵
+        m4.transpose()
+        console.log('转置矩阵', m4.elements);
+
+
+        /**
+         * 其他：
+         *   .determinant(): Float  计算并返回矩阵的行列式determinant 
+         *   
+         */
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>过滤器</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{ name | formatStr1 }}</p>
+      <p>{{ name | formatStr1 | formatStr2 }}</p>
+      <p>{{ name | formatStr1 | formatStr }}</p>
+      <p>{{ time | formatTime("yyyy-MM-dd") }}</p>
+    </div>
+    <br>
+    <div id="app2">
+      <p>{{ name | formatStr }}</p>
+    </div>
+
+    <script>
+      /**
+       * 注意点：在使用过滤器的时候，可以在过滤器名称后面加上()，以传递参数
+      */
+
+      //全局过滤器
+      Vue.filter('formatStr1', function(value) {
+        let name = value.replace(/大学/g, '幼儿园')
+        return name
+      })
+      Vue.filter('formatStr2', function(value) {
+        let name = value.replace(/幼儿园/g, '小学')
+        return name
+      })
+
+      let app = new Vue({
+        el: '#app',
+        data: {
+          name: '北京大学、清华大学、南京大学、华南理工大学',
+          time: new Date()
+        },
+        //局部过滤器
+        filters: {
+          'formatTime': function(value, str) {
+            let time = new Date(value)
+            let year = time.getFullYear()
+            let month = time.getMonth() + 1 + ""
+            let day = time.getDate() + ""
+            let hour = time.getHours() + ""
+            let minute = time.getMinutes() + ""
+            let second = time.getSeconds() + ""
+            if(str && str === 'yyyy-MM-dd') {
+              return  `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+            }
+            return `${year}/${month.padStart(2, "0")}/${day.padStart(2, "0")} ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}:${second.padStart(2, "0")}`
+          }
+        }
+      })
+      let app2 = new Vue({
+        el: '#app2',
+        data: {
+          name: '北京大学、清华大学、南京大学、华南理工大学'
+        },
+        //局部过滤器
+        filters: {
+          'formatStr': function(value) {
+            let name = value.replace(/大学/g, '中学')
+            return name
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

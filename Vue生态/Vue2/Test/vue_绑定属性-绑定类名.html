@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>绑定属性-绑定类名</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .size{
+        font-size: 50px;
+      }
+      .color{
+        color: red;
+      }
+      .active{
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p class="size color active">class="size color active"</p>
+      <p :class="['size', 'color', 'active']">:class="['size', 'color', 'active']"</p>
+      <p :class="['size', 'color', flag?'active':'']">:class="['size', 'color', flag?'active':'']"</p>
+      <p :class="['size', 'color', {'active':false}]">:class="['size', 'color', {'active':false}]"</p>
+      <p :class="obj">:class="obj"</p>
+    </div>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          flag: false,
+          obj: {
+            'size': false,
+            'color': true,
+            'active': true
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

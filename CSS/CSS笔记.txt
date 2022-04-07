@@ -1,0 +1,46 @@
+left等定位属性，要使用时，它得（dei）是已定位的元素。（absolute，relative，fixed）　　
+eg：img{position:absolute;left:100px} 如果去掉position：absolute，则left失效。对float：left这种浮动元素也是失效，反正就是定位了才让用哈。拓展一种居中用法，先定位，再设置 left：0;right：0;margin:auto 可以使元素垂直居中。 设置 top:0;bottom:0;margin:0 可以使元素水平居中。当然，设置四个值都是0；margin：0；后，这个元素就在正中间了。如果不设置元素大小，就平铺了。
+
+
+CSS position 属性值：
+absolute：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。
+relative：生成相对定位的元素，相对于其正常位置进行定位。因此，"left:20" 会向元素的 LEFT 位置添加 20 像素。
+fixed：生成绝对定位的元素，相对于浏览器窗口进行定位。
+static：默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right 或者 z-index 声明）。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。
+inherit：规定应该从父元素继承 position 属性的值。
+
+
+关于连接按钮效果的关键样式属性：
+1  link控制未访问时的显示效果
+2  visited 访问过后的显示效果
+3  hover鼠标悬停和划过时的显示效果
+4  active 控制按钮被点击时的显示效果
+5  focus 获得聚焦对象的元素，并设置聚焦时的显示效果
+
+渲染后代元素：
+.div:hover .other {
+}
+渲染子元素：
+.div:hover > .other {
+}
+渲染相邻元素：
+.div:hover + .other {
+}
+渲染同级元素：
+.div:hover ~ .other {
+}
+
+
+伪类（伪类选择器）：
+  伪类：同一个标签，根据其不同的状态有不同的样式。
+  静态伪类：
+    :link：超链接点击之前
+    :visited：链接被访问过之后
+  动态伪类：
+    :hover：“悬停”，即鼠标放到标签上的时候。
+    :action：“激活”，即鼠标点击标签，但是不松手时。
+    :focus：是某个标签获得焦点时的样式。
+
+css样式占位和不占位隐藏元素的方法
+  不占位隐藏：display:none;
+  占位隐藏：visibility:hidden;

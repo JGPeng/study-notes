@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas 默认是行内元素 -->
+    <canvas width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+    <script>
+        var canvas = document.querySelector('canvas')
+        var ctx = canvas.getContext('2d')
+
+        /**
+            fillText(text, x, y, maxWidth)
+            text - 规定在画布上输出的文字
+            x - 开始绘制文本的 x 坐标位置（相对于画布）
+            y - 开始绘制文本的 y 坐标位置（相对于画布）
+            maxWidth - 可选，允许的最大文本宽度，以像素计
+        */
+        ctx.font = '40px 微软雅黑'
+        ctx.fillStyle = 'pink'
+        ctx.fillText('Hello', 50, 150)
+
+        // 绘制空心文字
+        ctx.strokeStyle = 'red'
+        ctx.strokeText('World', 50, 300)
+
+        // 没有使用 maxWidth
+        ctx.fillStyle = 'blue'
+        ctx.fillText('Hello Canvas!Hello Canvas!Hello Canvas!', 200, 50)
+        // 使用了 maxWidth
+        ctx.fillStyle = 'green'
+        ctx.fillText('Hello Canvas!Hello Canvas!Hello Canvas!', 200, 150, 250)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Observer {
+            constructor(data) {
+                this.observer(data)
+            }
+            observer(obj) {
+                if (obj && typeof obj === 'object') {
+                    for (let key in obj) {
+                        this.defineReactive(obj, key, obj[key])
+                    }
+                }
+            }
+            defineReactive(obj, attr, value) {
+                this.observer(value)
+                Object.defineProperty(obj, attr, {
+                    get() {
+                        return value
+                    },
+                    set: (newVal) => {
+                        if (value !== newVal) {
+                            this.observer(newVal)
+                            value = newVal
+                            console.log('set')
+                        }
+                    }
+                })
+            }
+        }
+
+        let obj = { name: { a: 'abc' }, age: 18 }
+        new Observer(obj)
+
+        obj.name = 'ABC'
+        obj.name = { a: 'abc' }
+        obj.name.a = 'a'
+
+    </script>
+</body>
+
+</html>

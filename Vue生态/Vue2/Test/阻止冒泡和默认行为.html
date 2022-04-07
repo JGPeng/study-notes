@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阻止冒泡和默认行为</title>
+    <style>
+        #info {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+        }
+
+        .box-1 {
+            width: 400px;
+            height: 400px;
+            background-color: blue;
+        }
+
+        .box-2 {
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .box-3 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+        }
+
+        .box-4 {
+            width: 50px;
+            height: 50px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info">
+        <div class="box-1" onclick="box1()">
+            最外层
+            <div class="box-2" onclick="box2()">
+                第二层
+                <div class="box-3" onclick="box3()">
+                    第三层
+                    <div class="box-4" onclick="bubbles()">最底</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function bubbles(e) {
+            var ev = e || window.event;
+            if (ev && ev.stopPropagation) {
+                //非IE浏览器
+                ev.stopPropagation();
+            } else {
+                //IE浏览器(IE11以下)
+                ev.cancelBubble = true;
+            }
+            console.log("最底层盒子被点击了")
+        }
+
+        function box1() {
+            console.log("最外层盒子被点击了");
+        }
+
+        function box2() {
+            console.log("第二个盒子被点击了");
+        }
+
+        function box3() {
+            console.log("第三个盒子被点击了");
+        }
+    </script>
+</body>
+
+</html>

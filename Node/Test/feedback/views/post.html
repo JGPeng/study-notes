@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="../public/css/general.css">
+    <link rel="stylesheet" href="../public/css/post.css">
+</head>
+<body>
+    <div class="head">
+        <h1 class="head_title">评论</h1>
+        <p class="toIndex"><a href="/">前往首页</a></p>
+    </div>
+    <div class="main">
+        <form action="/submit" method="GET">
+            <div class="main_form">
+                <div class="form_name">
+                    <label class="input_text">姓名</label>
+                    <input class="input_name" type="text" name="name" />
+                </div>
+                <div class="form_comment">
+                    <label class="input_text">评论</label>
+                    <textarea class="input_comment" name="comment" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="main_publish"><button type="submit">发表</button></div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父子组件通信-props和emit</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>我是父组件</h1>
+        <h4>name: {{name}}</h4>
+        <button @click="changeName">修改name</button>
+        <son :name="name" @change-name="changeName"></son>
+    </div>
+    <template id="son">
+        <div>
+            <h1>我是子组件</h1>
+            <h4>name: {{name}}</h4>
+            <button @click="changeName">修改name</button>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        // 子组件通过emit传递方法时，事件名不能有大写。
+        const son = {
+            el: '#son',
+            props: {
+                name: {
+                    type: String,
+                    default: ''
+                }
+            },
+            methods: {
+                changeName() {
+                    this.$emit('change-name')
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: { son },
+            data: {
+                name: 'gerald'
+            },
+            methods: {
+                changeName() {
+                    this.name += '!'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

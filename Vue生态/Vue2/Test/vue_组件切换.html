@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <title>组件切换</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <button @click="handleShow">切换</button>
+      <home v-if="isShow"></home>
+      <phone v-else></phone>
+
+      <component :is="name"></component>
+
+      <!-- 保持组件状态：每次切换标签时Vue都会创建一个新的组件实例，
+          使用keep-alive可以保持组件状态 -->
+      <keep-alive>
+        <component :is="name"></component>
+      </keep-alive>
+    </div>
+
+    <template id="home">
+      <div>
+        <input type="checkbox" />---<span>自定义组件</span>
+      </div>
+    </template>
+    <template id="phone">
+      <div>
+        <img width="300px" alt="" src="https://www.hualigs.cn/image/609022a69fb04.jpg" />
+      </div>
+    </template>
+    <script>
+      Vue.component('home', {
+        template: '#home'
+      })
+      Vue.component('phone', {
+        template: '#phone'
+      })
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          isShow: true,
+          name: 'home'
+        },
+        methods: {
+          handleShow() {
+            this.isShow = !this.isShow
+            this.name = this.name === 'home' ? 'phone' : 'home'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

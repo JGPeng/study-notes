@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image-item {
+            display: block;
+            margin-bottom: 50px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="" class="image-item" lazyload="true" data-original="../images/girl.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img95.699pic.com/photo/40015/1187.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="https://img95.699pic.com/photo/40005/6424.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="https://img95.699pic.com/photo/40015/1193.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://seopic.699pic.com/photo/40005/9439.jpg_wh1200.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img95.699pic.com/photo/50061/8614.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://seopic.699pic.com/photo/40005/9487.jpg_wh1200.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img95.699pic.com/photo/50064/2789.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img95.699pic.com/photo/40061/3261.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="https://img.zcool.cn/community/01ab045ca30a14a801208f8b815426.jpg@1280w_1l_2o_100sh.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img95.699pic.com/photo/50071/7510.jpg_wh860.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://seopic.699pic.com/photo/50055/7618.jpg_wh1200.jpg" />
+    <script>
+        var viewHeight = document.documentElement.clientHeight || document.body.clientHeight  // 获取可视区高度
+        function lazyload() {
+            var eles = document.querySelectorAll('img[data-original][lazyload]')
+            Array.prototype.forEach.call(eles, function (item, index) {
+                var rect
+                if (item.dataset.original === "")
+                    return
+                rect = item.getBoundingClientRect()// 用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置
+                if (rect.bottom >= 0 && rect.top < viewHeight) {
+                    !function () {
+                        var img = new Image()
+                        img.src = item.dataset.original
+                        img.onload = function () {
+                            item.src = img.src
+                        }
+                        item.removeAttribute("data-original")  //移除属性，下次不再遍历
+                        item.removeAttribute("lazyload")
+                    }()
+                }
+            })
+        }
+        lazyload()//刚开始还没滚动屏幕时，要先触发一次函数，初始化首页的页面图片
+        document.addEventListener("scroll", lazyload)
+    </script>
+</body>
+
+</html>

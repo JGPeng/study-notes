@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head><!--设置缩放和绘制-->
+    <meta name="viewport" content="width=device-width, initial-scale=1,minmum-scale=1,maxmum-scale=1,user-scalable=no">
+    <style>
+        .wrapper {
+            overflow: auto;
+        }
+
+        #main {
+            margin-left: 4px;
+        }
+
+        #leftsidebar {
+            float: none;
+            width: auto;
+        }
+
+        #menulist {
+            margin: 0;
+            padding: 0;
+        }
+
+        .menuitem {
+            background: #CDF0F6;
+            border: 1px solid #d4d4d4;
+            border-radius: 4px;
+            list-style-type: none;
+            margin: 4px;
+            padding: 2px;
+        }
+
+        @media screen and (min-width: 1000px) {
+            #leftsidebar {
+                width: 200px;
+                float: left;
+            }
+
+            #main {
+                margin-left: 216px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div id="leftsidebar">
+            <ul id="menulist">
+                <li class="menuitem">Menu-item 1</li>
+                <li class="menuitem">Menu-item 2</li>
+                <li class="menuitem">Menu-item 3</li>
+                <li class="menuitem">Menu-item 4</li>
+                <li class="menuitem">Menu-item 5</li>
+            </ul>
+        </div>
+
+        <div id="main">
+            <h1>请调整浏览器窗口大小来查看效果！</h1>
+            <p>本例显示了一个菜单，如果视口为 480 像素或更宽，它将向页面左侧浮动。如果视口小于 480 像素，则菜单将位于内容的顶部。</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

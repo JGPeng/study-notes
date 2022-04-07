@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合练习-时钟</title>
+    <style>
+        #myCanvas {
+            display: block;
+            margin: 20px auto;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="500">
+        <span>您的浏览器不支持，请升级浏览器版本或者使用Chrome！</span>
+    </canvas>
+    <script>
+        window.onload = function () {
+            myCanvas()
+        }
+        function myCanvas() {
+            const myCanvas = document.getElementById('myCanvas')
+            const ctx = myCanvas.getContext('2d')
+            
+            drawCircle(ctx, 250, 250, 100, 0, 2 * Math.PI,'skyblue',5)
+
+            drawCircle(ctx, 250, 250, 90, 0, parseInt(Math.PI/30),'black',2)
+            drawCircle(ctx, 250, 250, 90, 0, parseInt(Math.PI/30),'black',2)
+        }
+
+        function drawCircle(ctx, x, y, r, start, stop, color,width,counterclockwise) {
+            ctx.save()
+
+            ctx.lineWidth = width
+            ctx.strokeStyle = color
+
+            ctx.beginPath()
+
+            ctx.arc(x, y, r, start, stop, counterclockwise || false)
+            ctx.stroke()
+
+            ctx.restore()
+        }
+    </script>
+</body>
+
+</html>

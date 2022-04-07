@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            min-width: 840px;
+            height: 800px;
+            padding-top: 20px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <video id="myVideo" controls>
+            <source src="../static/video/巨大黑鮪魚切割秀.mp4" type="video/mp4">
+            <source src="../static/video/巨大黑鮪魚切割秀.mp4" type="video/webm">
+            <p>Your browser doesn't support HTML5 video. Here is
+                a <a href="myVideo.mp4">link to the video</a> instead.</p>
+        </video> -->
+        <video id="myVideo" width="80%"></video>
+        <button id="playBtn">播放</button>
+        <button id="pauseBtn">暂停</button>
+        <button id="testBtn">test</button>
+    </div>
+
+    <script src="../static/flv.min.js"></script>
+    <script>
+        const myVideo = document.getElementById("myVideo")
+        const playBtn = document.getElementById("playBtn")
+        const pauseBtn = document.getElementById("pauseBtn")
+        const testBtn = document.getElementById("testBtn")
+        if (flvjs.isSupported()) {
+            const flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                url: '../static/video/myVideo.flv'
+            })
+            flvPlayer.attachMediaElement(myVideo)
+            flvPlayer.load()
+            playBtn.addEventListener('click', () => {
+                flvPlayer.play()
+            })
+            pauseBtn.addEventListener('click', () => {
+                flvPlayer.pause()
+            })
+            testBtn.addEventListener('click', () => {
+                const type = flvPlayer.type
+                const buffered = flvPlayer.buffered
+                const duration = flvPlayer.duration
+                const volume = flvPlayer.volume
+                const muted = flvPlayer.muted
+                const currentTime = flvPlayer.currentTime
+                const mediaInfo = flvPlayer.mediaInfo
+                const statisticsInfo = flvPlayer.statisticsInfo
+                console.log('type', type)
+                console.log('buffered', buffered)
+                console.log('duration', duration)
+                console.log('volume', volume)
+                console.log('muted', muted)
+                console.log('currentTime', currentTime)
+                console.log('mediaInfo', mediaInfo)
+                console.log('statisticsInfo', statisticsInfo)
+            })
+        }
+    </script>
+</body>
+
+</html>
