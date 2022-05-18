@@ -36,6 +36,8 @@
    nginx -s stop
    或
    nginx -s quit
+   或
+   taskkill /im nginx.exe /f // 停止所有nginx进程
    ```
 
 3. 重新加载
