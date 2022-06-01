@@ -17,3 +17,6 @@
    <img src="E:\github\study-notes\小程序\images\引用三方库.png" style="zoom:100%;" />
 
    
+##### 注意
+
+如果构建npm没有生成 `miniprogram_npm` 文件，则在 `project.config.json` 中设置：`packNpmManually: false`。
